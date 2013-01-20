@@ -1,0 +1,4 @@
+# JGame
+This is going to be a Java game! Our first game and our first app in Java!
+
+More information will be added in the future.
