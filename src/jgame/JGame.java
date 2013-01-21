@@ -9,7 +9,6 @@ import org.newdawn.slick.SlickException;
 
 /**
  * JGame main class.
- * Based on Mojang's game: Catacomb Snatch. Thanks!
  * @author hector
  */
 public class JGame extends BasicGame
