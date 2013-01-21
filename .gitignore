@@ -12,3 +12,4 @@ nbproject/private/
 *.swp
 *.out
 /build/
+/dist/
