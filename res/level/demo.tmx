@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="lttp" tilewidth="16" tileheight="16">
+  <image source="../tileset/lttp.png" trans="ff40ff" width="576" height="570"/>
+ </tileset>
+ <layer name="Capa de Patrones 1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzNkkkOwiAUhpF4AKejOK3r0nvoadSwde201apncLoAd3A6gj8JL2kJTR6EhYsvtPTx9X9AVhdiBDLmOJNCzAssZLlmAqYB4x7rDwVyWa451nhQBp+Pvi0F38fJF+IjlIV85lmDExhH+Hznoawrxufr13hi81X5VEIfZdNO7Qpza7ABW7Dz/M/n09Z3dmovmLuCG7iDB9NHLrffJ95f4A0+4BuYz/U1QBO0QBt0mPtH2ZRT2wU90AcDMAw439T3j3pO4avav1gf3WV3//4lX2of3Wfj/QGMyvvD
+  </data>
+ </layer>
+ <layer name="Capa de patrones 2" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztkUkKwkAQRTsYFW8S9Q6iS6dbOKwcTiLEATRew2TlcBWHW7jyFaShFZO0O0E/POhK1f9Ud4KcUltYwwaChFqrybkFbehA1+iJ5wgn2MMhpdYacR7DBKZwN3riucINznBJqbV8znNYwBJWRk88BVepIriQd5NrrQGeIdShATMjTzwVqIIH5ZT6VT1y+nFWLe57b+Z+Qb6jVCmXjDmXpYiZQD37TMl3ydnFZClQ2XmhY7+fZIVOep4ossj6ZD/b+4YW7yc5clebHWUuzPi/vmP3dn99nx5JCDiG
+  </data>
+ </layer>
+ <layer name="Capa de patrones 3" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJztk8kNgEAMxCIlQCscDXO0wkIrHI3gDubDA4lY8sPSfMfsX4xuNuGMi+tWrGwKbri7bsXB5sQLb9etiDCrsMYmdCtaNh32OITuJHmT/O+3/vsAlys7TQ==
+  </data>
+ </layer>
+</map>
