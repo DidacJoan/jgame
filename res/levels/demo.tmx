@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="20" height="20" tilewidth="16" tileheight="16">
  <tileset firstgid="1" name="lttp" tilewidth="16" tileheight="16">
-  <image source="../tileset/lttp.png" trans="ff40ff" width="576" height="570"/>
+  <image source="../tilesets/lttp.png" trans="ff40ff" width="576" height="570"/>
  </tileset>
  <layer name="Capa de Patrones 1" width="20" height="20">
   <data encoding="base64" compression="zlib">
