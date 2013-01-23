@@ -62,6 +62,6 @@ public class JGame extends BasicGame
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
-        level.render(0, 0);
+        level.render(g);
     }
 }

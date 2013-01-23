@@ -50,6 +50,11 @@ public class Player
         sprites[Dir.DOWN.getValue()].setPingPong(true);
     }
     
+    public Vec2 getPos()
+    {
+        return pos;
+    }
+    
     public void setPos(double x, double y)
     {
         pos.x = x;
@@ -88,12 +93,7 @@ public class Player
             posNew.x += delta * 0.1f;
         }
         else
-        {
             updateSprite = false;
-        }
-        
-        if(input.isKeyDown(Input.KEY_Z))
-            System.out.println("("+ pos.x + ", " + pos.y + ")");
         
         if(updateSprite)
         {
@@ -103,9 +103,7 @@ public class Player
             Vec2 bottomRight = posNew.add(new Vec2(17.0, 27.0));
 
             if(! level.areTilesBlocked(topLeft, bottomRight))
-            {
                 pos = posNew;
-            }
         }
         else
         {
@@ -113,9 +111,7 @@ public class Player
             int standFrame =  frameNum / 2;
             
             if(frameNum % 2 != 0)
-            {
                 standFrame += 1;
-            }
             
             sprites[facing.getValue()].setCurrentFrame(standFrame);
         }
@@ -124,5 +120,7 @@ public class Player
     public void render()
     {
         sprites[facing.getValue()].draw((float)pos.x, (float)pos.y);
+        
+        
     }
 }

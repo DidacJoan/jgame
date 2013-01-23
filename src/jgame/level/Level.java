@@ -3,6 +3,7 @@ package jgame.level;
 import jgame.entity.Dir;
 import jgame.entity.Player;
 import jgame.math.Vec2;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
@@ -116,13 +117,16 @@ public class Level
         }
     }
     
-    public void render(int x, int y)
+    public void render(Graphics g)
     {
-        map.render(x, y);
+        map.render(0, 0);
         
         if(player != null)
         {
             player.render();
+            
+            Vec2 pos = player.getPos();
+            g.drawString("(" + (int)pos.x + ", " + (int)pos.y + ")", (int)pos.x + 21, (int)pos.y + 27);
         }
     }   
 }
