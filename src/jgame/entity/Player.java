@@ -119,8 +119,6 @@ public class Player
     
     public void render()
     {
-        sprites[facing.getValue()].draw((float)pos.x, (float)pos.y);
-        
-        
+        sprites[facing.getValue()].draw((float)pos.x, (float)pos.y);     
     }
 }

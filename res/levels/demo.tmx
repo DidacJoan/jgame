@@ -13,7 +13,7 @@
    <property name="blocked" value="false"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJy9k7sNwjAQhs8JA1AwCq86lFmDxzSA3FJT0PJIZqBggexAwQicFZ84GydcrIjik63o/Pm3fckGAAskE44H+IbXrJFNhzHk4zU3JUOSz8ylPkm+Lj5CW5YpwCqt5xVSIHmEb5sA7Bj7pHYaV4zvjOsvjGtSe2LzNfk08+kOdxfyUTZzj6X6vMvRe7dTYL+Qr7I+cpHv7vke9nvxIx+5cruO6p+e78XutxTky8HNN1Sub6TcfE0+yqZtLfnGyASZIjNk7r1F2XJeQnv7t/0Tbf1CZ+6j//j99eGjXpb28b/z9e2jfjbeN8WS9/E=
+   eJy9k0sOgjAQhqfAAVx4FF9rTNxwDR+nUdOtaxdufcAZXHgB7uDCIzhNZ8KAFAohLr4wadov/7RDHAEskdjze4Jf5J4tsuvwrfPJPQ/lh08+U/v6fPJ18TGaWIcAm9DWOZIiSQ/fPgA4CI6BdRpXH98Vz98E98B6+uZz+bTwmXoVuZF3V+fjbOYeM2XfxZw7V97tQuu6JV9OPnax71nxvWg9bcnHroTOpdTvu+L7QNFv5pEvgXK+kSr7xqqcz+XjbJrmkH0TrKfIDJkjC1Xk05TR1S/Dzqb35X+iaV645yHmT97fED6eZd3R9a98Q/t4no33C1XV7ek=
   </data>
  </layer>
  <layer name="Trees roots" width="20" height="20">
@@ -34,7 +34,15 @@
    <property name="blocked" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztkzkOgDAQAy0lwP87jq9wfIXAR3DjcrUpFlGQkaawZLkz8C/GBEx0pkvys7ez0o3u9KjIFuqdtNCL3hXZQr2cgY72dMh+tlCv0fiSqP+KqP+KqP+KqP++xQPfATuX
+   eJxjYBgFlIA9zAwMe4F4HxDvZybMJ2TOAyB+CMSPgPgxEXxcAKaOhYWBgRWI2YCYnYUwHxeAqRsFo2A4AWrlXxigVv6FAWrlX1oBAJXOK7Q=
+  </data>
+ </layer>
+ <layer name="Trees top" width="20" height="20">
+  <properties>
+   <property name="above" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBhZYAYzA8NMIJ4FxLOZCfMJmTMKRsEooB+gVv4dBdQBAE9zD+Q=
   </data>
  </layer>
 </map>

@@ -19,11 +19,14 @@ public class Level
     private TiledMap map;
     private Player player;
     private boolean[][] blocked;
+    private int layerCount;
+    private int aboveIndex;
     
     public Level(String name) throws SlickException
     {
         this.name = name;
         player = null;
+        aboveIndex = 0;
         
         load();
     }
@@ -34,37 +37,43 @@ public class Level
         
         map = new TiledMap("res/levels/" + name + ".tmx");
         
-        loadBlockedTiles();
+        loadTiles();
         
         System.out.println(name + " level loaded successfully!");
     }
     
-    private void loadBlockedTiles()
+    private void loadTiles()
     {
         blocked = new boolean[map.getHeight()][map.getWidth()];
-        
-        int layerCount = map.getLayerCount();
+        layerCount = aboveIndex = map.getLayerCount();
         
         for(int i = 0; i < layerCount; ++i)
         {
             System.out.println("Loading layer " + i + "...");
             
-            if(map.getLayerProperty(i, "blocked", "false").equals("false"))
-            {
-                continue;
-            }
+            if(map.getLayerProperty(i, "blocked", "false").equals("true"))
+                loadBlockedTilesFromLayer(i);
             
-            for(int j = 0; j < blocked.length; ++j)
+            if(aboveIndex == layerCount && map.getLayerProperty(i, "above", "false").equals("true"))
             {
-                for(int k = 0; k < blocked[0].length; ++k)
+                aboveIndex = i;
+                System.out.println("Layers " + i + "+ are above the player...");
+            }
+        }
+    }
+    
+    private void loadBlockedTilesFromLayer(int layerIndex)
+    {
+        for (int j = 0; j < blocked.length; ++j)
+        {
+            for (int k = 0; k < blocked[0].length; ++k)
+            {
+                if (blocked[j][k])
                 {
-                    if(blocked[j][k])
-                    {
-                        continue;
-                    }
-                    
-                    blocked[j][k] = (map.getTileId(k, j, i) > 0);
+                    continue;
                 }
+
+                blocked[j][k] = (map.getTileId(k, j, layerIndex) > 0);
             }
         }
     }
@@ -76,7 +85,7 @@ public class Level
         double playerX = Double.parseDouble(map.getMapProperty(location + "X", "0"));
         double playerY = Double.parseDouble(map.getMapProperty(location + "Y", "0"));
                 
-        player.setPos(playerX * map.getTileWidth(), (playerY-1) * map.getTileHeight());
+        player.setPos(playerX * map.getTileWidth(), (playerY-0.7) * map.getTileHeight());
         
         String playerFacing = map.getMapProperty(location + "F", "UP");
         Dir facing = Dir.valueOf(playerFacing);
@@ -119,14 +128,34 @@ public class Level
     
     public void render(Graphics g)
     {
-        map.render(0, 0);
+        if(player == null)
+            renderDirectly(g);
         
-        if(player != null)
+        else
+            renderLayerByLayer(g);
+    }
+    
+    private void renderDirectly(Graphics g)
+    {
+        map.render(0, 0);
+    }
+    
+    private void renderLayerByLayer(Graphics g)
+    {
+        renderLayers(0, aboveIndex);
+        player.render();
+        renderLayers(aboveIndex, layerCount);
+        
+        Vec2 pos = player.getPos();
+        g.drawString("(" + (int)pos.x + ", " + (int)pos.y + ")", (int)pos.x + 21, (int)pos.y + 27);
+    }
+    
+    private void renderLayers(int from, int to)
+    {
+        while(from < to)
         {
-            player.render();
-            
-            Vec2 pos = player.getPos();
-            g.drawString("(" + (int)pos.x + ", " + (int)pos.y + ")", (int)pos.x + 21, (int)pos.y + 27);
+            map.render(0, 0, from);
+            from++;
         }
-    }   
+    }
 }
