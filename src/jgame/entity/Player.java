@@ -64,27 +64,28 @@ public class Player
     public void update(Level level, Input input, int delta)
     {
         boolean updateSprite = true;
+        Vec2 posNew = new Vec2(pos.x, pos.y);
         
         if (input.isKeyDown(Input.KEY_UP))
         {
             facing = Dir.UP;
-            pos.y -= delta * 0.1f;
+            posNew.y -= delta * 0.1f;
         }
         else if (input.isKeyDown(Input.KEY_DOWN))
         {
             facing = Dir.DOWN;
-            pos.y += delta * 0.1f;
+            posNew.y += delta * 0.1f;
         }
         
         else if (input.isKeyDown(Input.KEY_LEFT))
         {
             facing = Dir.LEFT;
-            pos.x -= delta * 0.1f;
+            posNew.x -= delta * 0.1f;
         }
         else if (input.isKeyDown(Input.KEY_RIGHT))
         {
             facing = Dir.RIGHT;
-            pos.x += delta * 0.1f;
+            posNew.x += delta * 0.1f;
         }
         else
         {
@@ -94,6 +95,14 @@ public class Player
         if(updateSprite)
         {
             sprites[facing.getValue()].update(delta);
+            
+            Vec2 topLeft = posNew.add(new Vec2(0, 13.5));
+            Vec2 bottomRight = posNew.add(new Vec2(21.0, 27.0));
+
+            if(! level.areTilesBlocked(topLeft, bottomRight))
+            {
+                pos = posNew;
+            }
         }
         else
         {
