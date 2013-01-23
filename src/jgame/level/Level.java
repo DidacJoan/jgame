@@ -85,8 +85,8 @@ public class Level
     
     public boolean areTilesBlocked(Vec2 topLeft, Vec2 bottomRight)
     {
-        int topX = (int) topLeft.x / map.getTileWidth();
-        int topY = (int) topLeft.y / map.getTileHeight();
+        double topX = topLeft.x / map.getTileWidth();
+        double topY = topLeft.y / map.getTileHeight();
         int botX = (int) bottomRight.x / map.getTileWidth();
         int botY = (int) bottomRight.y / map.getTileHeight();
         
@@ -96,9 +96,9 @@ public class Level
         if(topY < 0 || botY >= blocked.length)
             return true;
         
-        for(int i = topX; i <= botX; ++i)
+        for(int i = (int)topX; i <= botX; ++i)
         {
-            for(int j = topY; j <= botY; ++j)
+            for(int j = (int)topY; j <= botY; ++j)
             {
                 if(blocked[j][i])
                     return true;

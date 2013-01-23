@@ -92,12 +92,15 @@ public class Player
             updateSprite = false;
         }
         
+        if(input.isKeyDown(Input.KEY_Z))
+            System.out.println("("+ pos.x + ", " + pos.y + ")");
+        
         if(updateSprite)
         {
             sprites[facing.getValue()].update(delta);
             
-            Vec2 topLeft = posNew.add(new Vec2(0, 13.5));
-            Vec2 bottomRight = posNew.add(new Vec2(21.0, 27.0));
+            Vec2 topLeft = posNew.add(new Vec2(4, 13.5));
+            Vec2 bottomRight = posNew.add(new Vec2(17.0, 27.0));
 
             if(! level.areTilesBlocked(topLeft, bottomRight))
             {

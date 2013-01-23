@@ -16,6 +16,11 @@
    eJy9k7sNwjAQhs8JA1AwCq86lFmDxzSA3FJT0PJIZqBggexAwQicFZ84GydcrIjik63o/Pm3fckGAAskE44H+IbXrJFNhzHk4zU3JUOSz8ylPkm+Lj5CW5YpwCqt5xVSIHmEb5sA7Bj7pHYaV4zvjOsvjGtSe2LzNfk08+kOdxfyUTZzj6X6vMvRe7dTYL+Qr7I+cpHv7vke9nvxIx+5cruO6p+e78XutxTky8HNN1Sub6TcfE0+yqZtLfnGyASZIjNk7r1F2XJeQnv7t/0Tbf1CZ+6j//j99eGjXpb28b/z9e2jfjbeN8WS9/E=
   </data>
  </layer>
+ <layer name="Trees roots" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo4B4oMHCwKAJxFpArM1CmE/InFEwCkYB/QC18i8MAABMsgSe
+  </data>
+ </layer>
  <layer name="Shop and trees" width="20" height="20">
   <properties>
    <property name="blocked" value="true"/>
@@ -29,7 +34,7 @@
    <property name="blocked" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJztk8kJwEAMAw27SVrJ0XCOVnK0kqOR6KOnsQP+ZQfmIRD6SeRfjElkgjNckp2tnRVucIeHI2uwd8IL3vBxZA32chapYA2bbGcN9lrYwR4OjqzBXqHwhaj/kqj/kqj/kqj/kqj/khclgkA0
+   eJztkzkOgDAQAy0lwP87jq9wfIXAR3DjcrUpFlGQkaawZLkz8C/GBEx0pkvys7ez0o3u9KjIFuqdtNCL3hXZQr2cgY72dMh+tlCv0fiSqP+KqP+KqP+KqP++xQPfATuX
   </data>
  </layer>
 </map>
