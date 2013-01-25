@@ -24,7 +24,7 @@ public class AttackSword extends Action
                                                         };
     private static final Vec2Int    DIM             =   new Vec2Int(36, 36);
     private static final int[]      SPRITE_COUNT    =   {6, 9, 9, 9};
-    private static final int[]      SPRITE_SPEED    =   {35, 20, 20, 20};
+    private static final int[]      SPRITE_SPEED    =   {31, 20, 20, 20};
     
     public AttackSword() throws SlickException
     {
