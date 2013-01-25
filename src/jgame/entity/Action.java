@@ -17,14 +17,13 @@ import org.newdawn.slick.SpriteSheet;
  */
 abstract public class Action
 {
-    private Vec2 entityPos;
-    private int[] spriteStand;
+    private Vec2[] entityPos;
 
-    protected Animation anims[];
-    protected int animCurrent;
+    private Animation anims[];
+    private int animCurrent;
     
-    public Action(String name, String entity, Vec2 entityPos, Vec2Int dim, int[] spriteCount,
-            int[] spriteSpeed, int[] spriteStand) throws SlickException
+    public Action(String name, String entity, Vec2[] entityPos, Vec2Int dim, int[] spriteCount,
+            int[] spriteSpeed) throws SlickException
     {
         SpriteSheet ss = new SpriteSheet("res/charsets/" + entity + "/" + name + ".png", dim.x, dim.y);
         
@@ -37,9 +36,7 @@ abstract public class Action
                     spriteSpeed[dirValue], false);
         }
         
-        this.spriteStand = spriteStand;
         this.entityPos = entityPos;
-        standByAnim();
     }
     
     protected void setAnim(int index)
@@ -47,9 +44,14 @@ abstract public class Action
         animCurrent = index;
     }
     
-    protected final void standByAnim()
+    protected Animation getAnim(int index)
     {
-        anims[animCurrent].setCurrentFrame(spriteStand[animCurrent]);
+        return anims[index];
+    }
+    
+    protected Animation getCurrentAnim()
+    {
+        return anims[animCurrent];
     }
     
     protected void updateAnim(int delta)
@@ -59,9 +61,18 @@ abstract public class Action
     
     public void render(Vec2 pos)
     {
-        anims[animCurrent].draw((float)(pos.x + entityPos.x), (float)(pos.y + entityPos.y));
+        anims[animCurrent].draw(
+                (float)(pos.x - entityPos[animCurrent].x),
+                (float)(pos.y - entityPos[animCurrent].y)
+        );
     }
     
     abstract public void transition(Player player);
     abstract public void update(Player player, Level level, int delta);
+    
+    public void enter(Player player)
+    {   }
+    
+    public void leave(Player player)
+    {   }
 }

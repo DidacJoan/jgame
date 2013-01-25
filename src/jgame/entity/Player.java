@@ -1,6 +1,7 @@
 package jgame.entity;
 
 import jgame.entity.action.LinkAction;
+import jgame.entity.action.link.AttackSword;
 import jgame.entity.action.link.Move;
 import jgame.level.Level;
 import jgame.math.Vec2;
@@ -23,9 +24,16 @@ public class Player
     {
         this.input = input;
         pos = new Vec2(0, 0);
-        actions = new Action[]{ new Move() };
+        actions = new Action[]{ new Move("shield"), new AttackSword() };
         currentAction = LinkAction.MOVE;
         facing = Dir.UP;
+    }
+    
+    public void changeAction(LinkAction action)
+    {
+        actions[currentAction.getValue()].leave(this);
+        currentAction = action;
+        actions[currentAction.getValue()].enter(this);
     }
     
     public boolean hasKeyDown(int code)
