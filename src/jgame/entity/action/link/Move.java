@@ -55,8 +55,7 @@ public class Move extends Action
     public void update(Player player, Level level, int delta)
     {
         Vec2 pos;
-        boolean moving = false;
-        boolean blocked = (player.hasKeyDown(KEYS[player.getFacing().getValue()]));
+        boolean moving = (player.hasKeyDown(KEYS[player.getFacing().getValue()]));
         int i = 0;
         
         for(int key : KEYS)
@@ -69,19 +68,16 @@ public class Move extends Action
                 
                 tryToMove(player, level, pos);
                 
-                moving = true;
-                
-                if(! blocked)
+                if(! moving)
                 {
                     player.setFacing(KEY_DIR[i]);
-                    blocked = true;
+                    moving = true;
                 }
             }
             
             i++;
         }
         
-        movingBefore = moving;
         setAnim(player.getFacing().getValue());
         
         if(moving)
