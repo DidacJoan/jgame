@@ -118,11 +118,11 @@ public class Level
         return false;
     }
     
-    public void update(Input input, int delta)
+    public void update(int delta)
     {
         if(player != null)
         {
-            player.update(this, input, delta);
+            player.update(this, delta);
         }
     }
     

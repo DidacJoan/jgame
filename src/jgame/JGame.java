@@ -19,6 +19,7 @@ public class JGame extends BasicGame
     private static final int framerate = 60;
     
     private Level level;
+    boolean updated = false;
     
     public JGame()
     {
@@ -46,7 +47,7 @@ public class JGame extends BasicGame
     public void init(GameContainer container) throws SlickException
     {
         level = new Level("demo");
-        Player player = new Player("link");
+        Player player = new Player(container.getInput());
         
         level.setPlayer(player, "entrance");
     }
@@ -54,14 +55,14 @@ public class JGame extends BasicGame
     @Override
     public void update(GameContainer container, int delta) throws SlickException
     {
-        Input input = container.getInput();
-        
-        level.update(input, delta);
+        level.update(delta);
+        updated = true;
     }
     
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
-        level.render(g);
+        if(updated)
+            level.render(g);
     }
 }
