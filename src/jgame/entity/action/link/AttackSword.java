@@ -1,6 +1,7 @@
 package jgame.entity.action.link;
 
 import jgame.entity.Action;
+import jgame.entity.Mob;
 import jgame.entity.Player;
 import jgame.entity.action.LinkAction;
 import jgame.level.Level;
@@ -32,7 +33,7 @@ public class AttackSword extends Action
     }
     
     @Override
-    public void enter(Player player)
+    public void enter(Mob player)
     {
         int index = player.getFacing().getValue();
         setAnim(index);
@@ -40,14 +41,14 @@ public class AttackSword extends Action
     }
     
     @Override
-    public void transition(Player player)
+    public void transition(Mob player)
     {
         if(getCurrentAnim().isStopped())
             player.changeAction(LinkAction.MOVE);
     }
     
     @Override
-    public void update(Player player, Level level, int delta)
+    public void update(Mob player, Level level, int delta)
     {
         updateAnim(delta);
         
@@ -58,7 +59,7 @@ public class AttackSword extends Action
     }
     
     @Override
-    public void leave(Player player)
+    public void leave(Mob player)
     {
         getCurrentAnim().restart();
     }

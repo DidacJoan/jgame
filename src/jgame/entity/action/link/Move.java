@@ -2,7 +2,7 @@ package jgame.entity.action.link;
 
 import jgame.entity.Action;
 import jgame.entity.Dir;
-import jgame.entity.Player;
+import jgame.entity.Mob;
 import jgame.entity.action.LinkAction;
 import jgame.level.Level;
 import jgame.math.Vec2;
@@ -53,7 +53,7 @@ public class Move extends Action
     }
     
     @Override
-    public void enter(Player player)
+    public void enter(Mob player)
     {
         int index = player.getFacing().getValue();
         
@@ -62,42 +62,33 @@ public class Move extends Action
     }
     
     @Override
-    public void transition(Player player)
+    public void transition(Mob player)
     {
         if(player.hasKeyDown(Input.KEY_Z))
             player.changeAction(LinkAction.ATTACK_SWORD);
     }
     
     @Override
-    public void update(Player player, Level level, int delta)
+    public void update(Mob player, Level level, int delta)
     {
-        Vec2 pos;
-        boolean moving = (player.hasKeyDown(KEYS[player.getFacing().getValue()]));
+        Dir facing = player.getFacing();
+        
+        if(player.hasKeyDown(KEYS[facing.getValue()]))
+            player.move(facing, level, delta);
+        
         int i = 0;
         
         for(int key : KEYS)
         {
-            if(player.hasKeyDown(key))
-            {
-                pos = player.getPos();
-                Vec2 vecDir = KEY_DIR[i].getVector().mul(new Vec2(0.1 * delta, 0.1 * delta));
-                pos = pos.add(vecDir);
-                
-                tryToMove(player, level, pos);
-                
-                if(! moving)
-                {
-                    player.setFacing(KEY_DIR[i]);
-                    moving = true;
-                }
-            }
+            if(KEY_DIR[i] != facing && player.hasKeyDown(key))
+                player.move(KEY_DIR[i], level, delta);
             
             i++;
         }
         
         setAnim(player.getFacing().getValue());
         
-        if(moving)
+        if(player.isMoving())
             updateAnim(delta);
         else
             standByAnim();
@@ -106,15 +97,5 @@ public class Move extends Action
     private void standByAnim()
     {
         getCurrentAnim().setCurrentFrame(SPRITE_STAND);
-    }
-    
-    
-    private void tryToMove(Player player, Level level, Vec2 pos)
-    {
-        Vec2 topLeft = pos.add(new Vec2(4, 13.5));
-        Vec2 bottomRight = pos.add(new Vec2(17.0, 27.0));
-
-        if (! level.areTilesBlocked(topLeft, bottomRight))
-            player.setPos(pos.x, pos.y);
     }
 }

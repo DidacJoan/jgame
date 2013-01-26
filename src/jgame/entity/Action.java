@@ -63,12 +63,12 @@ abstract public class Action
         );
     }
     
-    abstract public void transition(Player player);
-    abstract public void update(Player player, Level level, int delta);
+    abstract public void transition(Mob mob);
+    abstract public void update(Mob mob, Level level, int delta);
     
-    public void enter(Player player)
+    public void enter(Mob mob)
     {   }
     
-    public void leave(Player player)
+    public void leave(Mob mob)
     {   }
 }
