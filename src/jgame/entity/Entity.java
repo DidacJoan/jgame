@@ -22,6 +22,11 @@ public class Entity {
         return pos;
     }
     
+    public void setPos(Vec2 pos)
+    {
+        this.pos = pos;
+    }
+    
     public void setPos(double x, double y)
     {
         pos.x = x;

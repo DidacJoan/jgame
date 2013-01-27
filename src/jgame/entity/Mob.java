@@ -49,7 +49,7 @@ public class Mob extends Entity
         Vec2 intensity = new Vec2(0.1 * delta, 0.1 * delta);
         Vec2 newPos = dir.getVector().mul(intensity).add(pos); // DIR * INTENSITY + POS
         
-        if (! level.areTilesBlocked(topLeft.add(newPos), bottomRight.add(newPos)))
+        if (! level.isAreaBlocked(topLeft.add(newPos), bottomRight.add(newPos)))
             pos = newPos;
     }
     
