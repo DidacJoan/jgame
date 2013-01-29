@@ -1,6 +1,7 @@
 package jgame.entity;
 
-import jgame.level.Level;
+import jgame.level.EntityMap;
+import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.utils.IntegerEnum;
 
@@ -10,8 +11,6 @@ import jgame.utils.IntegerEnum;
  */
 public class Mob extends Entity
 {
-    private Vec2 topLeft;
-    private Vec2 bottomRight;
     private Dir facing;
     private boolean moving;
     private Action[] actions;
@@ -19,10 +18,7 @@ public class Mob extends Entity
     
     public Mob(Vec2 topLeft, Vec2 bottomRight, int numActions)
     {
-        super();
-        
-        this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
+        super(topLeft, bottomRight);
         facing = Dir.UP;
         moving = false;
         actions = new Action[numActions];
@@ -38,7 +34,7 @@ public class Mob extends Entity
         return facing;
     }
     
-    public void move(Dir dir, Level level, long delta)
+    public void move(Dir dir, TileMap map, EntityMap entities, long delta)
     {
         if(! moving)
         {
@@ -49,7 +45,7 @@ public class Mob extends Entity
         Vec2 intensity = new Vec2(0.1 * delta, 0.1 * delta);
         Vec2 newPos = dir.getVector().mul(intensity).add(pos); // DIR * INTENSITY + POS
         
-        if (! level.isAreaBlocked(topLeft.add(newPos), bottomRight.add(newPos)))
+        if (! map.areTilesBlocked(topLeft.add(newPos), bottomRight.add(newPos), entities))
             pos = newPos;
     }
     
@@ -73,12 +69,14 @@ public class Mob extends Entity
         actions[currentAction.getValue()].enter(this);
     }
     
-    public void update(Level level, int delta)
+    @Override
+    public void update(TileMap map, EntityMap entities, int delta)
     {
         actions[currentAction.getValue()].transition(this);
-        actions[currentAction.getValue()].update(this, level, delta);
+        actions[currentAction.getValue()].update(this, map, entities, delta);
     }
     
+    @Override
     public void render()
     {
         actions[currentAction.getValue()].render(pos);

@@ -1,10 +1,13 @@
 package jgame.entity.action.link;
 
 import jgame.entity.Action;
+import jgame.entity.MessageType;
 import jgame.entity.Mob;
 import jgame.entity.Player;
 import jgame.entity.action.LinkAction;
+import jgame.level.EntityMap;
 import jgame.level.Level;
+import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.SlickException;
@@ -27,6 +30,8 @@ public class AttackSword extends Action
     private static final int[]      SPRITE_COUNT    =   {6, 9, 9, 9};
     private static final int[]      SPRITE_SPEED    =   {31, 20, 20, 20};
     
+    private boolean sent;
+    
     public AttackSword() throws SlickException
     {
         super(NAME, ENTITY, ENTITY_POS, DIM, SPRITE_COUNT, SPRITE_SPEED);
@@ -35,6 +40,7 @@ public class AttackSword extends Action
     @Override
     public void enter(Mob player)
     {
+        sent = false;
         int index = player.getFacing().getValue();
         setAnim(index);
         getCurrentAnim().stopAt(SPRITE_COUNT[index]-1);
@@ -48,14 +54,16 @@ public class AttackSword extends Action
     }
     
     @Override
-    public void update(Mob player, Level level, int delta)
+    public void update(Mob player, TileMap map, EntityMap entities, int delta)
     {
         updateAnim(delta);
         
-        /**
-         * When animation is in the middle frame, then send a message to entities
-         * that are adjacent to the player-facing.
-         */
+        int middle = (getCurrentAnim().getFrameCount() - 1) / 2;
+        if(!sent && getCurrentAnim().getFrame() == middle)
+        {
+            entities.send(MessageType.DAMAGE, player, player.getFacing());
+            sent = true;
+        }
     }
     
     @Override

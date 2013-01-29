@@ -1,0 +1,27 @@
+package jgame.entity.object;
+
+import jgame.entity.Entity;
+import jgame.entity.MapObject;
+import jgame.entity.MessageType;
+import org.newdawn.slick.Image;
+
+/**
+ *
+ * @author hector
+ */
+public class Plant extends MapObject
+{
+    public Plant(int width, int height, Image image)
+    {
+        super(width, height, image);
+    }
+    
+    @Override
+    public void receive(MessageType msg, Entity from)
+    {
+        System.out.println(msg + " received");
+        
+        if(msg == MessageType.DAMAGE)
+            kill();
+    }
+}

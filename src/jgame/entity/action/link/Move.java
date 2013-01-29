@@ -4,7 +4,9 @@ import jgame.entity.Action;
 import jgame.entity.Dir;
 import jgame.entity.Mob;
 import jgame.entity.action.LinkAction;
+import jgame.level.EntityMap;
 import jgame.level.Level;
+import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.Input;
@@ -69,19 +71,19 @@ public class Move extends Action
     }
     
     @Override
-    public void update(Mob player, Level level, int delta)
+    public void update(Mob player, TileMap map, EntityMap entities, int delta)
     {
         Dir facing = player.getFacing();
         
         if(player.hasKeyDown(KEYS[facing.getValue()]))
-            player.move(facing, level, delta);
+            player.move(facing, map, entities, delta);
         
         int i = 0;
         
         for(int key : KEYS)
         {
             if(KEY_DIR[i] != facing && player.hasKeyDown(key))
-                player.move(KEY_DIR[i], level, delta);
+                player.move(KEY_DIR[i], map, entities, delta);
             
             i++;
         }

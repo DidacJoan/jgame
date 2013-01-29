@@ -26,7 +26,7 @@
    <property name="blocked" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJzt0TkKwkAUxvEJiYqleomodxAt3a6hlctJBDfQWKuXcKnVS7jUam/lf8CBQUgMYQoRP/jBe/PyXhPPFmKGCabwfHqVMnUFVdRQ12ZyZ4MtVlgH9Cot6jY66OKhzeTOGRcccQroVfrUAwwxwlibyZ24I0QCDmKOf6/SYKeJIkroaffkTg55uMgG9EEpvObuh+9+OUnbX9R7MnMssHx7j3pvhz0Ohu5dccPd0L2UJUQaGcvMvbDvYe6Z/L//fEeewNotCA==
+   eJztzDsOQUEUxvG5MaixiYs9CKXXNqg8ViLhknDV2IRHjU141OhV/pOYZJo7IplyvuSXzJcz58QpIZaYY4E4oevUeTfQRAttY6Z29jhgi52l6/R49zHAEG9jpnZuuOOCq6XrjHlPEGGKmTFTOxkpRBYSaZncdTrsdFFFDSPjntopoYwQRUu3pfKdhz/++fyfFdbYOLp3xAlnR/ceeOLl6F4uECKPQuDooI+PJR+tdSvo
   </data>
  </layer>
  <layer name="Trees" width="20" height="20">
@@ -45,4 +45,30 @@
    eJxjYBhZYAYzA8NMIJ4FxLOZCfMJmTMKRsEooB+gVv4dBdQBAE9zD+Q=
   </data>
  </layer>
+ <objectgroup name="Objects" width="20" height="20">
+  <object name="plant" type="plant" gid="777" x="128" y="144" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="128" y="160" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="128" y="176" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="128" y="192" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="128" y="208" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="128" y="224" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="128" y="240" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="112" y="240" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="96" y="240" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="80" y="240" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="64" y="240" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="48" y="240" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="32" y="240" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="32" y="224" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="32" y="208" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="32" y="192" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="32" y="176" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="32" y="160" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="32" y="144" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="48" y="144" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="64" y="144" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="80" y="144" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="96" y="144" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="112" y="144" width="256" height="256"/>
+ </objectgroup>
 </map>

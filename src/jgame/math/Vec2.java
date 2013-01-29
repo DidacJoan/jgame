@@ -129,7 +129,12 @@ public class Vec2
     {
         return new Vec2(x * v.x, y * v.y);
     }
-
+    
+    public Vec2Int div(Vec2Int v)
+    {
+        return new Vec2Int((int)x / v.x, (int)y / v.y);
+    }
+    
     public final void validate()
     {
         if (Double.isInfinite(x) || Double.isInfinite(y) || Double.isNaN(x) || Double.isNaN(y))

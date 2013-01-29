@@ -1,6 +1,7 @@
 package jgame.entity;
 
-import jgame.level.Level;
+import jgame.level.EntityMap;
+import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.Animation;
@@ -64,7 +65,7 @@ abstract public class Action
     }
     
     abstract public void transition(Mob mob);
-    abstract public void update(Mob mob, Level level, int delta);
+    abstract public void update(Mob mob, TileMap map, EntityMap entities, int delta);
     
     public void enter(Mob mob)
     {   }
