@@ -79,7 +79,7 @@ public class TileMap implements TileBasedMap {
         }
     }
     
-    public boolean areTilesBlocked(Vec2 topLeft, Vec2 bottomRight, EntityMap entities)
+    public boolean areTilesBlocked(Vec2 topLeft, Vec2 bottomRight)
     {
         double topX = topLeft.x / map.getTileWidth();
         double topY = topLeft.y / map.getTileHeight();
@@ -96,7 +96,7 @@ public class TileMap implements TileBasedMap {
         {
             for(int j = (int)topY; j <= botY; ++j)
             {
-                if(blocked[j][i] || entities.hasEntity(i, j))
+                if(blocked[j][i])
                     return true;
             }
         }

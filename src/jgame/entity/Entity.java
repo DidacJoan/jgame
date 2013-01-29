@@ -11,15 +11,14 @@ import jgame.math.Vec2;
  * @author hector
  */
 public class Entity {
-
     protected Vec2 pos;
     protected Vec2 topLeft;
     protected Vec2 bottomRight;
     private boolean shouldDie;
     
-    public Entity()
+    public Entity(int width, int height)
     {
-        this(new Vec2(0, 0), new Vec2(0, 0));
+        this(new Vec2(0, 0), new Vec2(width - 1, height - 1));
     }
     
     public Entity(Vec2 topLeft, Vec2 bottomRight)
@@ -48,10 +47,20 @@ public class Entity {
     
     public Vec2 getTopLeft()
     {
+        return getTopLeft(pos);
+    }
+    
+    public Vec2 getTopLeft(Vec2 pos)
+    {
         return topLeft.add(pos);
     }
     
     public Vec2 getBottomRight()
+    {
+        return getBottomRight(pos);
+    }
+    
+    public Vec2 getBottomRight(Vec2 pos)
     {
         return bottomRight.add(pos);
     }
@@ -64,6 +73,16 @@ public class Entity {
     public void kill()
     {
         shouldDie = true;
+    }
+    
+    public boolean collidesWith(Entity e)
+    {
+        return false;
+    }
+    
+    public void handleCollisionWith(Entity e)
+    {
+        
     }
     
     public void receive(MessageType msg, Entity from)

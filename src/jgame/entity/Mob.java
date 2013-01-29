@@ -45,7 +45,10 @@ public class Mob extends Entity
         Vec2 intensity = new Vec2(0.1 * delta, 0.1 * delta);
         Vec2 newPos = dir.getVector().mul(intensity).add(pos); // DIR * INTENSITY + POS
         
-        if (! map.areTilesBlocked(topLeft.add(newPos), bottomRight.add(newPos), entities))
+        if(map.areTilesBlocked(getTopLeft(newPos), getBottomRight(newPos)))
+            return;
+        
+        if(entities.handleCollisions(this, newPos))
             pos = newPos;
     }
     

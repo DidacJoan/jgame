@@ -9,25 +9,29 @@ import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 
 /**
- *
+ * An Entity manager.
+ * Provides methods to manage entities in a tile based map.
  * @author hector
  */
 public class EntityMap
 {
+    private static final int SUBTILES_X = 4;
+    private static final int SUBITLES_Y = 4;
+    
     private List<Entity>[][] map;
     private List<Entity> entities;
     
-    int tileWidth;
-    int tileHeight;
+    int subtileWidth;
+    int subtileHeight;
     
     public EntityMap(int width, int height, int tileWidth, int tileHeight)
     {
-        map = new List[height][width];
-        initMap(width, height);
+        map = new List[height*SUBITLES_Y][width*SUBTILES_X]; // One tile has 4 subtiles
+        initMap(width*SUBTILES_X, height*SUBITLES_Y);
         
         entities = new ArrayList();
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
+        this.subtileWidth = tileWidth / SUBTILES_X;
+        this.subtileHeight = tileHeight / SUBITLES_Y;
     }
     
     private void initMap(int w, int h)
@@ -39,14 +43,14 @@ public class EntityMap
     
     public void lock(Entity entity)
     {
-        Vec2Int tile = getTile(entity);
-        map[tile.y][tile.x].add(entity);
+        for(Vec2Int tile : getSubtiles(entity))
+            map[tile.y][tile.x].add(entity);
     }
     
     public void free(Entity entity)
     {
-        Vec2Int tile = getTile(entity);
-        map[tile.y][tile.x].remove(entity);
+        for(Vec2Int tile : getSubtiles(entity))
+            map[tile.y][tile.x].remove(entity);
     }
     
     public void add(Entity entity)
@@ -81,14 +85,28 @@ public class EntityMap
         return entities;
     }
     
-    public boolean hasEntity(int x, int y)
+    public boolean handleCollisions(Entity e, Vec2 pos)
     {
-        return (! map[y][x].isEmpty());
+        boolean collides = false;
+        
+        for(Vec2Int tile : getSubtiles(e, pos))
+        {
+            for(Entity e_collision : map[tile.y][tile.x])
+            {
+                if(e_collision.collidesWith(e))
+                {
+                    e_collision.handleCollisionWith(e);
+                    collides = true;
+                }
+            }
+        }
+        
+        return !collides;
     }
     
     public void send(MessageType msg, Entity from, Dir to)
     {
-        Vec2Int tileFrom = getTile(from);
+        /*Vec2Int tileFrom = getTile(from);
         Vec2Int tileTo = tileFrom.add(to.getVector());
         
         if(tileTo.x >= map[0].length)
@@ -100,18 +118,25 @@ public class EntityMap
         System.out.println("Sending " + msg + " from " + tileFrom + " to " + tileTo);
         
         for(Entity e : map[tileTo.y][tileTo.x])
-            e.receive(msg, from);
+            e.receive(msg, from);*/
     }
     
-    private Vec2Int getTile(Entity entity)
+    private List<Vec2Int> getSubtiles(Entity entity)
     {
-        Vec2 pos = entity.getPos();
+        return getSubtiles(entity, entity.getPos());
+    }
+    
+    private List<Vec2Int> getSubtiles(Entity entity, Vec2 pos)
+    {
+        List<Vec2Int> subtiles = new ArrayList();
         
-        // Center the position, small hack!
-        // @todo REFACTORING NEEDED!
-        int x = (int) pos.x + 12;
-        int y = (int) pos.y + 14;
+        Vec2Int subtilesTop = entity.getTopLeft(pos).div(new Vec2Int(subtileWidth, subtileHeight));
+        Vec2Int subtilesBot = entity.getBottomRight(pos).div(new Vec2Int(subtileWidth, subtileHeight));
         
-        return new Vec2Int(x / tileWidth, y / tileHeight);
+        for(int i = subtilesTop.y; i <= subtilesBot.y; ++i)
+            for(int j = subtilesTop.x; j <= subtilesBot.x; ++j)
+                subtiles.add(new Vec2Int(j, i));
+        
+        return subtiles;
     }
 }

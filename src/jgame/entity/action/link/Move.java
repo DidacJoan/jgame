@@ -5,7 +5,6 @@ import jgame.entity.Dir;
 import jgame.entity.Mob;
 import jgame.entity.action.LinkAction;
 import jgame.level.EntityMap;
-import jgame.level.Level;
 import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;

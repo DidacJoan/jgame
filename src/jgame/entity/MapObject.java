@@ -13,8 +13,7 @@ public class MapObject extends Entity {
     
     public MapObject(int width, int height, Image image)
     {
-        this.width = width;
-        this.height = height;
+        super(width, height);
         this.image = image;
     }
     

@@ -46,29 +46,8 @@
   </data>
  </layer>
  <objectgroup name="Objects" width="20" height="20">
-  <object name="plant" type="plant" gid="777" x="128" y="144" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="128" y="160" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="128" y="176" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="128" y="192" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="128" y="208" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="128" y="224" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="128" y="240" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="112" y="240" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="96" y="240" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="80" y="240" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="64" y="240" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="48" y="240" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="32" y="240" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="32" y="224" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="32" y="208" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="32" y="192" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="32" y="176" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="32" y="160" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="32" y="144" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="48" y="144" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="64" y="144" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="80" y="144" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="96" y="144" width="256" height="256"/>
-  <object name="plant" type="plant" gid="777" x="112" y="144" width="256" height="256"/>
+  <object name="plant" type="plant" gid="777" x="128" y="144" width="16" height="16"/>
+  <object name="plant" type="plant" gid="777" x="128" y="160" width="16" height="16"/>
+  <object name="plant" type="plant" gid="777" x="226" y="206" width="16" height="16"/>
  </objectgroup>
 </map>

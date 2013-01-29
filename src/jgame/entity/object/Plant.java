@@ -6,7 +6,7 @@ import jgame.entity.MessageType;
 import org.newdawn.slick.Image;
 
 /**
- *
+ * A simple plant.
  * @author hector
  */
 public class Plant extends MapObject
@@ -23,5 +23,11 @@ public class Plant extends MapObject
         
         if(msg == MessageType.DAMAGE)
             kill();
+    }
+    
+    @Override
+    public boolean collidesWith(Entity e)
+    {
+        return true;
     }
 }
