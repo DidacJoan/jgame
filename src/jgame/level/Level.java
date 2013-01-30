@@ -52,7 +52,7 @@ public class Level
                 break;
         }
         
-        e.setPos(object.x, object.y - map.getTileHeight());
+        e.setPos(object.x, object.y - object.height);
         entities.add(e);
     }
     

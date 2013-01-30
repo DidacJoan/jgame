@@ -20,6 +20,21 @@ public class Vec2Int
         return new Vec2Int((int)v.x + x, (int)v.y + y);
     }
     
+    public Vec2Int sub(Vec2Int v)
+    {
+        return new Vec2Int(x - v.x, y - v.y);
+    }
+    
+    public Vec2Int mul(Vec2Int v)
+    {
+        return new Vec2Int(x * v.x, y * v.y);
+    }
+    
+    public Vec2Int div(Vec2Int v)
+    {
+        return new Vec2Int(x / v.x, y / v.y);
+    }
+    
     @Override
     public String toString()
     {

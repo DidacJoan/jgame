@@ -13,7 +13,7 @@ import org.newdawn.slick.SlickException;
  */
 public class Player extends Mob
 {
-    private static final Vec2 TOP_L = new Vec2(4.0, 13.5);
+    private static final Vec2 TOP_L = new Vec2(4.0, 13.0);
     private static final Vec2 BOT_R = new Vec2(17.0, 27.0);
     
     private Input input;

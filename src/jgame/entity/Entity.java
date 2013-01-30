@@ -11,6 +11,7 @@ import jgame.math.Vec2;
  * @author hector
  */
 public class Entity {
+    
     protected Vec2 pos;
     protected Vec2 topLeft;
     protected Vec2 bottomRight;
@@ -43,6 +44,16 @@ public class Entity {
     {
         pos.x = x;
         pos.y = y;
+    }
+    
+    public int getWidth()
+    {
+        return (int)(bottomRight.x - topLeft.x);
+    }
+    
+    public int getHeight()
+    {
+        return (int)(bottomRight.y - topLeft.y);
     }
     
     public Vec2 getTopLeft()

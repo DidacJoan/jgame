@@ -1,12 +1,12 @@
 package jgame.entity.action.link;
 
 import jgame.entity.Action;
+import jgame.entity.Dir;
 import jgame.entity.MessageType;
 import jgame.entity.Mob;
-import jgame.entity.Player;
 import jgame.entity.action.LinkAction;
+import jgame.level.TileArea;
 import jgame.level.EntityMap;
-import jgame.level.Level;
 import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
@@ -29,8 +29,10 @@ public class AttackSword extends Action
     private static final Vec2Int    DIM             =   new Vec2Int(36, 36);
     private static final int[]      SPRITE_COUNT    =   {6, 9, 9, 9};
     private static final int[]      SPRITE_SPEED    =   {31, 20, 20, 20};
-    
-    private boolean sent;
+    private static final TileArea   AREA            =   new TileArea(new char[][]{
+                                                                        { 'O', 'C', 'O' },
+                                                                        { 'X', 'X', 'X' }
+                                                                    });
     
     public AttackSword() throws SlickException
     {
@@ -40,7 +42,9 @@ public class AttackSword extends Action
     @Override
     public void enter(Mob player)
     {
-        sent = false;
+        AREA.setCenter(player);
+        AREA.setOrientation(player.getFacing());
+        
         int index = player.getFacing().getValue();
         setAnim(index);
         getCurrentAnim().stopAt(SPRITE_COUNT[index]-1);
@@ -56,14 +60,13 @@ public class AttackSword extends Action
     @Override
     public void update(Mob player, TileMap map, EntityMap entities, int delta)
     {
-        updateAnim(delta);
+        if(! updateAnim(delta))
+            return;
         
         int middle = (getCurrentAnim().getFrameCount() - 1) / 2;
-        if(!sent && getCurrentAnim().getFrame() == middle)
-        {
-            entities.send(MessageType.DAMAGE, player, player.getFacing());
-            sent = true;
-        }
+        
+        if(getCurrentAnim().getFrame() == middle)
+            entities.send(MessageType.DAMAGE, player, AREA);
     }
     
     @Override

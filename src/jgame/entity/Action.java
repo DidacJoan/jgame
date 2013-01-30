@@ -51,9 +51,13 @@ abstract public class Action
         return anims[animCurrent];
     }
     
-    protected void updateAnim(int delta)
+    protected boolean updateAnim(int delta)
     {
+        int frame = anims[animCurrent].getFrame();
+        
         anims[animCurrent].update(delta);
+        
+        return frame != anims[animCurrent].getFrame();
     }
     
     public void render(Vec2 pos)
