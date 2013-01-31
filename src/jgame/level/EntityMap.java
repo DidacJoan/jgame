@@ -2,6 +2,7 @@ package jgame.level;
 
 import java.util.ArrayList;
 import java.util.List;
+import jgame.Debug;
 import jgame.entity.Entity;
 import jgame.entity.MessageType;
 import jgame.math.Vec2;
@@ -110,7 +111,7 @@ public class EntityMap
             if(subtile.x >= map[0].length || subtile.y >= map.length)
                 continue;
             
-            System.out.println("Sending " + msg + " to " + subtile);
+            Debug.addPoint(subtile);
             
             for(Entity e : map[subtile.y][subtile.x])
                 e.receive(msg, from);

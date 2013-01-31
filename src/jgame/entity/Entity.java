@@ -46,14 +46,19 @@ public class Entity {
         pos.y = y;
     }
     
+    public Vec2 getCenter()
+    {
+        return getPos().add(new Vec2(getWidth() / 2.0, getHeight() / 2.0));
+    }
+    
     public int getWidth()
     {
-        return (int)(bottomRight.x - topLeft.x);
+        return (int)bottomRight.x + 1;
     }
     
     public int getHeight()
     {
-        return (int)(bottomRight.y - topLeft.y);
+        return (int)bottomRight.y + 1;
     }
     
     public Vec2 getTopLeft()

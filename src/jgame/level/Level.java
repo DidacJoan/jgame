@@ -1,9 +1,9 @@
 package jgame.level;
 
+import jgame.Debug;
 import jgame.entity.Entity;
 import jgame.entity.Player;
 import jgame.entity.object.Plant;
-import jgame.math.Vec2;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.GroupObject;
@@ -75,6 +75,8 @@ public class Level
             entities.free(e);
             e.update(map, entities, delta);
             entities.lock(e);
+            
+            Debug.addPoint(e.getCenter());
         }
     }
     

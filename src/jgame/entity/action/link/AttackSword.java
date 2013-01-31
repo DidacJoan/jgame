@@ -29,10 +29,16 @@ public class AttackSword extends Action
     private static final Vec2Int    DIM             =   new Vec2Int(36, 36);
     private static final int[]      SPRITE_COUNT    =   {6, 9, 9, 9};
     private static final int[]      SPRITE_SPEED    =   {31, 20, 20, 20};
-    private static final TileArea   AREA            =   new TileArea(new char[][]{
-                                                                        { 'O', 'C', 'O' },
-                                                                        { 'X', 'X', 'X' }
-                                                                    });
+    private static final TileArea   AREA            =
+            new TileArea(new String[][]{
+                { "OOOO", "ECEE", "OOOO" },
+                { "OOOO", "EEEE", "OOOO" },
+                { "OOXX", "EEEE", "XXOO" },
+                
+                { "OOXX", "XXXX", "XXOO" },
+                { "OOOX", "XXXX", "XOOO" },
+                { "OOOO", "XXXX", "OOOO" }
+            });
     
     public AttackSword() throws SlickException
     {
