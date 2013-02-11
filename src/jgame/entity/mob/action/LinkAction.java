@@ -1,4 +1,4 @@
-package jgame.entity.action;
+package jgame.entity.mob.action;
 
 import jgame.utils.IntegerEnum;
 

@@ -1,6 +1,6 @@
 package jgame;
 
-import jgame.entity.Player;
+import jgame.entity.mob.Player;
 import jgame.level.Level;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;

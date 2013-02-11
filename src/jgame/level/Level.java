@@ -2,7 +2,7 @@ package jgame.level;
 
 import jgame.Debug;
 import jgame.entity.Entity;
-import jgame.entity.Player;
+import jgame.entity.mob.Player;
 import jgame.entity.object.Plant;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;

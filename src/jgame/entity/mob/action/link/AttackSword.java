@@ -1,12 +1,11 @@
-package jgame.entity.action.link;
+package jgame.entity.mob.action.link;
 
-import jgame.entity.Action;
-import jgame.entity.Dir;
+import jgame.entity.mob.Action;
 import jgame.entity.MessageType;
 import jgame.entity.Mob;
-import jgame.entity.action.LinkAction;
-import jgame.level.TileArea;
+import jgame.entity.mob.action.LinkAction;
 import jgame.level.EntityMap;
+import jgame.level.TileArea;
 import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;

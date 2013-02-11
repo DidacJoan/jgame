@@ -1,5 +1,7 @@
-package jgame.entity;
+package jgame.entity.mob;
 
+import jgame.entity.Dir;
+import jgame.entity.Mob;
 import jgame.level.EntityMap;
 import jgame.level.TileMap;
 import jgame.math.Vec2;

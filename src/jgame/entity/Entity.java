@@ -93,7 +93,7 @@ public class Entity {
     
     public boolean collidesWith(Entity e)
     {
-        return false;
+        return true;
     }
     
     public void handleCollisionWith(Entity e)

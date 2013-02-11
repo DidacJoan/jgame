@@ -1,8 +1,9 @@
-package jgame.entity;
+package jgame.entity.mob;
 
-import jgame.entity.action.LinkAction;
-import jgame.entity.action.link.AttackSword;
-import jgame.entity.action.link.Move;
+import jgame.entity.Mob;
+import jgame.entity.mob.action.LinkAction;
+import jgame.entity.mob.action.link.AttackSword;
+import jgame.entity.mob.action.link.Move;
 import jgame.math.Vec2;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;

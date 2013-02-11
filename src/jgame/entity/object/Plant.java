@@ -24,10 +24,4 @@ public class Plant extends MapObject
         if(msg == MessageType.DAMAGE)
             kill();
     }
-    
-    @Override
-    public boolean collidesWith(Entity e)
-    {
-        return true;
-    }
 }
