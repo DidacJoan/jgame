@@ -44,13 +44,7 @@ public class Level
     {
         Entity e;
         
-        switch(object.type)
-        {
-            case "plant":
-            default:
-                e = new Plant(object.width, object.height, map.getImage(object));
-                break;
-        }
+        e = new Plant(object.width, object.height, map.getImage(object));
         
         e.setPos(object.x, object.y - object.height);
         entities.add(e);
