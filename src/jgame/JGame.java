@@ -18,7 +18,7 @@ public class JGame extends BasicGame
     private static final int framerate = 60;
     
     private Level level;
-    boolean updated = false;
+    private boolean updated = false;
     
     public JGame()
     {
