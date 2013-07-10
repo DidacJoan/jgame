@@ -4,6 +4,7 @@ import jgame.entity.Mob;
 import jgame.entity.mob.action.LinkAction;
 import jgame.entity.mob.action.link.AttackSword;
 import jgame.entity.mob.action.link.Move;
+import jgame.level.Level;
 import jgame.math.Vec2;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -19,14 +20,14 @@ public class Player extends Mob
     
     private Input input;
     
-    public Player(Input input) throws SlickException
+    public Player(Level level, Input input) throws SlickException
     {
-        super(TOP_L, BOT_R, LinkAction.size);
+        super("link", level, TOP_L, BOT_R, LinkAction.size);
         
         this.input = input;
         
-        setAction(LinkAction.MOVE, new Move("shield"));
-        setAction(LinkAction.ATTACK_SWORD, new AttackSword());
+        setAction(LinkAction.MOVE, new Move(this, "shield"));
+        setAction(LinkAction.ATTACK_SWORD, new AttackSword(this));
     }
     
     @Override

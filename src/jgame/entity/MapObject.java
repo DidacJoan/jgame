@@ -11,9 +11,9 @@ public class MapObject extends Entity {
     private int height;
     private Image image;
     
-    public MapObject(int width, int height, Image image)
+    public MapObject(String name, int width, int height, Image image)
     {
-        super(width, height);
+        super(name, width, height);
         this.image = image;
     }
     

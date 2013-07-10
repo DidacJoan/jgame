@@ -24,7 +24,7 @@ public class EntityMap
     
     public EntityMap(int width, int height, int tileWidth, int tileHeight)
     {
-        map = new List[height*SUBTILE_COUNT.y][width*SUBTILE_COUNT.x]; // One tile has 4 subtiles
+        map = new List[height*SUBTILE_COUNT.y][width*SUBTILE_COUNT.x];
         initMap();
         
         entities = new ArrayList();
@@ -115,6 +115,18 @@ public class EntityMap
             
             for(Entity e : map[subtile.y][subtile.x])
                 e.receive(msg, from);
+        }
+    }
+    
+    public void update(int delta)
+    {
+        for(Entity e : getEntities())
+        {
+            free(e);
+            e.update(delta);
+            lock(e);
+            
+            Debug.addPoint(e.getCenter());
         }
     }
     

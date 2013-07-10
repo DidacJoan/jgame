@@ -48,7 +48,7 @@ public class JGame extends BasicGame
         Debug.enable();
         
         level = new Level("demo");
-        Player player = new Player(container.getInput());
+        Player player = new Player(level, container.getInput());
         
         level.setPlayer(player, "entrance");
     }

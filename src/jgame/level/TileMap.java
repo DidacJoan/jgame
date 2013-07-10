@@ -1,13 +1,11 @@
 package jgame.level;
 
-import java.util.List;
 import jgame.entity.Dir;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.GroupObject;
-import org.newdawn.slick.tiled.ObjectGroup;
 import org.newdawn.slick.tiled.TileSet;
 import org.newdawn.slick.tiled.TiledMapPlus;
 import org.newdawn.slick.util.pathfinding.PathFindingContext;
@@ -17,16 +15,16 @@ import org.newdawn.slick.util.pathfinding.TileBasedMap;
  * Represents a map in the game.
  * @author hector
  */
-public class TileMap implements TileBasedMap {
+public class TileMap extends TiledMapPlus implements TileBasedMap {
     
     private String name;
-    private TiledMapPlus map;
     private boolean[][] blocked;
     private int layerCount;
     private int aboveIndex;
     
     public TileMap(String name) throws SlickException
     {
+        super("res/levels/" + name + ".tmx");
         this.name = name;
         
         load();
@@ -36,8 +34,6 @@ public class TileMap implements TileBasedMap {
     {
         System.out.println("Loading map " + name + "...");
         
-        map = new TiledMapPlus("res/levels/" + name + ".tmx");
-        
         loadTiles();
         
         System.out.println(name + " map loaded successfully!");
@@ -45,17 +41,17 @@ public class TileMap implements TileBasedMap {
     
     private void loadTiles()
     {
-        blocked = new boolean[map.getHeight()][map.getWidth()];
-        layerCount = aboveIndex = map.getLayerCount();
+        blocked = new boolean[getHeight()][getWidth()];
+        layerCount = aboveIndex = getLayerCount();
         
         for(int i = 0; i < layerCount; ++i)
         {
             System.out.println("Loading layer " + i + "...");
             
-            if(map.getLayerProperty(i, "blocked", "false").equals("true"))
+            if(getLayerProperty(i, "blocked", "false").equals("true"))
                 loadBlockedTilesFromLayer(i);
             
-            if(aboveIndex == layerCount && map.getLayerProperty(i, "above", "false").equals("true"))
+            if(aboveIndex == layerCount && getLayerProperty(i, "above", "false").equals("true"))
             {
                 aboveIndex = i;
                 System.out.println("Layers " + i + "+ are above the player...");
@@ -74,17 +70,17 @@ public class TileMap implements TileBasedMap {
                     continue;
                 }
 
-                blocked[j][k] = (map.getTileId(k, j, layerIndex) > 0);
+                blocked[j][k] = (getTileId(k, j, layerIndex) > 0);
             }
         }
     }
     
     public boolean areTilesBlocked(Vec2 topLeft, Vec2 bottomRight)
     {
-        double topX = topLeft.x / map.getTileWidth();
-        double topY = topLeft.y / map.getTileHeight();
-        int botX = (int) bottomRight.x / map.getTileWidth();
-        int botY = (int) bottomRight.y / map.getTileHeight();
+        double topX = topLeft.x / getTileWidth();
+        double topY = topLeft.y / getTileHeight();
+        int botX = (int) bottomRight.x / getTileWidth();
+        int botY = (int) bottomRight.y / getTileHeight();
         
         if(topX < 0 || botX >= blocked[0].length)
             return true;
@@ -106,34 +102,19 @@ public class TileMap implements TileBasedMap {
     
     public Location getLocation(String location)
     {
-        int x = Integer.parseInt(map.getMapProperty(location + "X", "0"));
-        int y = Integer.parseInt(map.getMapProperty(location + "Y", "0"));
+        int x = Integer.parseInt(getMapProperty(location + "X", "0"));
+        int y = Integer.parseInt(getMapProperty(location + "Y", "0"));
         
         Vec2Int tile = new Vec2Int(x, y-1);
-        Vec2 pos = new Vec2(tile.x * map.getTileWidth(), tile.y * map.getTileHeight());
-        Dir facing = Dir.valueOf(map.getMapProperty(location + "F", "UP"));
+        Vec2 pos = new Vec2(tile.x * getTileWidth(), tile.y * getTileHeight());
+        Dir facing = Dir.valueOf(getMapProperty(location + "F", "UP"));
         
         return new Location(tile, pos, facing);
     }
     
-    public int getTileWidth()
-    {
-        return map.getTileWidth();
-    }
-    
-    public int getTileHeight()
-    {
-        return map.getTileHeight();
-    }
-    
-    public List<ObjectGroup> getObjectGroups()
-    {
-        return map.getObjectGroups();
-    }
-    
     public Image getImage(GroupObject object)
     {
-        TileSet tileset = map.getTileSetByGID(object.gid);
+        TileSet tileset = getTileSetByGID(object.gid);
         int tilesetTileID = (object.gid - tileset.firstGID);
         
         return tileset.tiles.getSubImage(
@@ -158,7 +139,7 @@ public class TileMap implements TileBasedMap {
     {
         while(from < to)
         {
-            map.render(x, y, from);
+            render(x, y, from);
             from++;
         }
     }
@@ -175,14 +156,17 @@ public class TileMap implements TileBasedMap {
 
     @Override
     public int getHeightInTiles() {
-        return map.getHeight();
+        return getHeight();
     }
 
     @Override
     public int getWidthInTiles() {
-        return map.getWidth();
+        return getWidth();
     }
 
     @Override
-    public void pathFinderVisited(int arg0, int arg1) {}
+    public void pathFinderVisited(int arg0, int arg1)
+    {
+        
+    }
 }

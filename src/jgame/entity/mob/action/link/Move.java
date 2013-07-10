@@ -41,9 +41,9 @@ public class Move extends Action
     
     private boolean movingBefore;
     
-    public Move(String name) throws SlickException
+    public Move(Mob entity, String type) throws SlickException
     {
-        super(NAME + "_" + name, ENTITY, ENTITY_POS, DIM, SPRITE_COUNT, SPRITE_SPEED);
+        super(NAME + "_" + type, entity, ENTITY_POS, DIM, SPRITE_COUNT, SPRITE_SPEED);
         
         // UP and DOWN animations are ping pong animations!
         // This means that the animation goes back and forth.
@@ -54,42 +54,42 @@ public class Move extends Action
     }
     
     @Override
-    public void enter(Mob player)
+    public void enter()
     {
-        int index = player.getFacing().getValue();
+        int index = mob.getFacing().getValue();
         
         setAnim(index);
         standByAnim();
     }
     
     @Override
-    public void transition(Mob player)
+    public void transition()
     {
-        if(player.hasKeyDown(Input.KEY_Z))
-            player.changeAction(LinkAction.ATTACK_SWORD);
+        if(mob.hasKeyDown(Input.KEY_Z))
+            mob.changeAction(LinkAction.ATTACK_SWORD);
     }
     
     @Override
-    public void update(Mob player, TileMap map, EntityMap entities, int delta)
+    public void update(int delta)
     {
-        Dir facing = player.getFacing();
+        Dir facing = mob.getFacing();
         
-        if(player.hasKeyDown(KEYS[facing.getValue()]))
-            player.move(facing, map, entities, delta);
+        if(mob.hasKeyDown(KEYS[facing.getValue()]))
+            mob.move(facing, delta);
         
         int i = 0;
         
         for(int key : KEYS)
         {
-            if(KEY_DIR[i] != facing && player.hasKeyDown(key))
-                player.move(KEY_DIR[i], map, entities, delta);
+            if(KEY_DIR[i] != facing && mob.hasKeyDown(key))
+                mob.move(KEY_DIR[i], delta);
             
             i++;
         }
         
-        setAnim(player.getFacing().getValue());
+        setAnim(mob.getFacing().getValue());
         
-        if(player.isMoving())
+        if(mob.isMoving())
             updateAnim(delta);
         else
             standByAnim();

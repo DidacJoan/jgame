@@ -1,8 +1,8 @@
 package jgame.entity;
 
 import jgame.entity.mob.Action;
-import jgame.level.EntityMap;
-import jgame.level.TileMap;
+import jgame.level.Level;
+import jgame.level.TileArea;
 import jgame.math.Vec2;
 import jgame.utils.IntegerEnum;
 
@@ -12,14 +12,16 @@ import jgame.utils.IntegerEnum;
  */
 public class Mob extends Entity
 {
+    protected Level level;
     private Dir facing;
     private boolean moving;
     private Action[] actions;
     private IntegerEnum currentAction;
     
-    public Mob(Vec2 topLeft, Vec2 bottomRight, int numActions)
+    public Mob(String name, Level level, Vec2 topLeft, Vec2 bottomRight, int numActions)
     {
-        super(topLeft, bottomRight);
+        super(name, topLeft, bottomRight);
+        this.level = level;
         facing = Dir.UP;
         moving = false;
         actions = new Action[numActions];
@@ -35,7 +37,7 @@ public class Mob extends Entity
         return facing;
     }
     
-    public void move(Dir dir, TileMap map, EntityMap entities, long delta)
+    public void move(Dir dir, long delta)
     {
         if(! moving)
         {
@@ -43,19 +45,17 @@ public class Mob extends Entity
             moving = true;
         }
         
-        Vec2 intensity = new Vec2(0.1 * delta, 0.1 * delta);
-        Vec2 newPos = dir.getVector().mul(intensity).add(pos); // DIR * INTENSITY + POS
-        
-        if(map.areTilesBlocked(getTopLeft(newPos), getBottomRight(newPos)))
-            return;
-        
-        if(entities.handleCollisions(this, newPos))
-            pos = newPos;
+        level.move(this, dir, delta);
     }
     
     public boolean isMoving()
     {
         return moving;
+    }
+    
+    public void send(MessageType msg, TileArea area)
+    {
+        level.send(this, msg, area);
     }
     
     public void setAction(IntegerEnum id, Action action)
@@ -68,16 +68,16 @@ public class Mob extends Entity
     
     public void changeAction(IntegerEnum action)
     {
-        actions[currentAction.getValue()].leave(this);
+        actions[currentAction.getValue()].leave();
         currentAction = action;
-        actions[currentAction.getValue()].enter(this);
+        actions[currentAction.getValue()].enter();
     }
     
     @Override
-    public void update(TileMap map, EntityMap entities, int delta)
+    public void update(int delta)
     {
-        actions[currentAction.getValue()].transition(this);
-        actions[currentAction.getValue()].update(this, map, entities, delta);
+        actions[currentAction.getValue()].transition();
+        actions[currentAction.getValue()].update(delta);
     }
     
     @Override

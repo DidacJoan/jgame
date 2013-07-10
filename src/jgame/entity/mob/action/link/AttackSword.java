@@ -4,9 +4,7 @@ import jgame.entity.mob.Action;
 import jgame.entity.MessageType;
 import jgame.entity.Mob;
 import jgame.entity.mob.action.LinkAction;
-import jgame.level.EntityMap;
 import jgame.level.TileArea;
-import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.SlickException;
@@ -18,7 +16,6 @@ import org.newdawn.slick.SlickException;
 public class AttackSword extends Action
 {
     private static final String     NAME            =   "attack_sword";
-    private static final String     ENTITY          =   "link";
     private static final Vec2[]     ENTITY_POS      =   {
                                                             new Vec2(5, -1),
                                                             new Vec2(11, 12),
@@ -39,31 +36,31 @@ public class AttackSword extends Action
                 { "OOOO", "XXXX", "OOOO" }
             });
     
-    public AttackSword() throws SlickException
+    public AttackSword(Mob entity) throws SlickException
     {
-        super(NAME, ENTITY, ENTITY_POS, DIM, SPRITE_COUNT, SPRITE_SPEED);
+        super(NAME, entity, ENTITY_POS, DIM, SPRITE_COUNT, SPRITE_SPEED);
     }
     
     @Override
-    public void enter(Mob player)
+    public void enter()
     {
-        AREA.setCenter(player);
-        AREA.setOrientation(player.getFacing());
+        AREA.setCenter(mob);
+        AREA.setOrientation(mob.getFacing());
         
-        int index = player.getFacing().getValue();
+        int index = mob.getFacing().getValue();
         setAnim(index);
         getCurrentAnim().stopAt(SPRITE_COUNT[index]-1);
     }
     
     @Override
-    public void transition(Mob player)
+    public void transition()
     {
         if(getCurrentAnim().isStopped())
-            player.changeAction(LinkAction.MOVE);
+            mob.changeAction(LinkAction.MOVE);
     }
     
     @Override
-    public void update(Mob player, TileMap map, EntityMap entities, int delta)
+    public void update(int delta)
     {
         if(! updateAnim(delta))
             return;
@@ -71,11 +68,11 @@ public class AttackSword extends Action
         int middle = (getCurrentAnim().getFrameCount() - 1) / 2;
         
         if(getCurrentAnim().getFrame() == middle)
-            entities.send(MessageType.DAMAGE, player, AREA);
+            mob.send(MessageType.DAMAGE, AREA);
     }
     
     @Override
-    public void leave(Mob player)
+    public void leave()
     {
         getCurrentAnim().restart();
     }

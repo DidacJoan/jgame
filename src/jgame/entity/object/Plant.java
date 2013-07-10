@@ -13,7 +13,7 @@ public class Plant extends MapObject
 {
     public Plant(int width, int height, Image image)
     {
-        super(width, height, image);
+        super("plant", width, height, image);
     }
     
     @Override

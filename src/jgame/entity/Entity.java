@@ -1,7 +1,6 @@
 package jgame.entity;
 
-import jgame.level.EntityMap;
-import jgame.level.TileMap;
+import jgame.level.Level;
 import jgame.math.Vec2;
 
 /**
@@ -10,24 +9,32 @@ import jgame.math.Vec2;
  * Even the player is an entity.
  * @author hector
  */
-public class Entity {
-    
+public class Entity
+{
+    private String name;
     protected Vec2 pos;
     protected Vec2 topLeft;
     protected Vec2 bottomRight;
     private boolean shouldDie;
     
-    public Entity(int width, int height)
+    public Entity(String name, int width, int height)
     {
-        this(new Vec2(0, 0), new Vec2(width - 1, height - 1));
+        this(name, new Vec2(0, 0), new Vec2(width - 1, height - 1));
     }
     
-    public Entity(Vec2 topLeft, Vec2 bottomRight)
+    public Entity(String name, Vec2 topLeft, Vec2 bottomRight)
     {
+        this.name = name;
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
+        
         pos = new Vec2(0, 0);
         shouldDie = false;
+    }
+    
+    public String getName()
+    {
+        return name;
     }
     
     public Vec2 getPos()
@@ -106,7 +113,7 @@ public class Entity {
         
     }
     
-    public void update(TileMap map, EntityMap entities, int delta)
+    public void update(int delta)
     {
         
     }

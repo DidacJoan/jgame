@@ -1,9 +1,12 @@
 package jgame.level;
 
-import jgame.Debug;
+import jgame.entity.Dir;
 import jgame.entity.Entity;
+import jgame.entity.MessageType;
+import jgame.entity.Mob;
 import jgame.entity.mob.Player;
 import jgame.entity.object.Plant;
+import jgame.math.Vec2;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.GroupObject;
@@ -63,15 +66,7 @@ public class Level
     public void update(int delta)
     {
         entities.removeDead();
-        
-        for(Entity e : entities.getEntities())
-        {
-            entities.free(e);
-            e.update(map, entities, delta);
-            entities.lock(e);
-            
-            Debug.addPoint(e.getCenter());
-        }
+        entities.update(delta);
     }
     
     public void render(Graphics g)
@@ -82,5 +77,23 @@ public class Level
             e.render();
         
         map.renderLayersAbove(0, 0);
+    }
+    
+    public void move(Mob mob, Dir dir, long delta)
+    {
+        Vec2 pos = mob.getPos();
+        Vec2 intensity = new Vec2(0.1 * delta, 0.1 * delta);
+        Vec2 newPos = dir.getVector().mul(intensity).add(pos); // DIR * INTENSITY + POS
+        
+        if(map.areTilesBlocked(mob.getTopLeft(newPos), mob.getBottomRight(newPos)))
+            return;
+        
+        if(entities.handleCollisions(mob, newPos))
+            mob.setPos(newPos);
+    }
+    
+    public void send(Mob mob, MessageType msg, TileArea area)
+    {
+        entities.send(msg, mob, area);
     }
 }

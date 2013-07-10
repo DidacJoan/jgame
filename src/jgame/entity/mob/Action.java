@@ -16,17 +16,25 @@ import org.newdawn.slick.SpriteSheet;
  */
 abstract public class Action
 {
+    protected Mob mob;
     private Vec2[] entityPos;
 
     private Animation anims[];
     private int animCurrent;
     
-    public Action(String name, String entity, Vec2[] entityPos, Vec2Int dim, int[] spriteCount,
-            int[] spriteSpeed) throws SlickException
+    public Action(String name, Mob entity, Vec2[] entityPos, Vec2Int dim, int[] spriteCount, int[] spriteSpeed)
+            throws SlickException
     {
-        SpriteSheet ss = new SpriteSheet("res/charsets/" + entity + "/" + name + ".png", dim.x, dim.y);
+        this.mob = entity;
+        this.entityPos = entityPos;
+        this.anims = new Animation[spriteCount.length];
         
-        anims = new Animation[spriteCount.length];
+        initAnims(name, dim, spriteCount, spriteSpeed);
+    }
+    
+    private void initAnims(String name, Vec2Int dim, int[] spriteCount, int[] spriteSpeed) throws SlickException
+    {
+        SpriteSheet ss = new SpriteSheet("res/charsets/" + mob.getName() + "/" + name + ".png", dim.x, dim.y);
         
         for(Dir dir : Dir.values())
         {
@@ -34,8 +42,6 @@ abstract public class Action
             anims[dirValue] = new Animation(ss, 0, dirValue, spriteCount[dirValue]-1, dirValue, true,
                     spriteSpeed[dirValue], false);
         }
-        
-        this.entityPos = entityPos;
     }
     
     protected void setAnim(int index)
@@ -70,12 +76,16 @@ abstract public class Action
         );
     }
     
-    abstract public void transition(Mob mob);
-    abstract public void update(Mob mob, TileMap map, EntityMap entities, int delta);
+    abstract public void transition();
+    abstract public void update(int delta);
     
-    public void enter(Mob mob)
-    {   }
+    public void enter()
+    {
+        
+    }
     
-    public void leave(Mob mob)
-    {   }
+    public void leave()
+    {
+        
+    }
 }
