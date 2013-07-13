@@ -1,4 +1,4 @@
-package jgame.level;
+package jgame.level.area;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import jgame.math.Vec2Int;
  * Magic code, reading it can cause headaches.
  * @author hector
  */
-public class TileArea
+public class SubtileArea
 {
     private String[][] area;
     private int resolution;
@@ -22,7 +22,7 @@ public class TileArea
     
     Dir orientation;
     
-    public TileArea(String[][] area)
+    public SubtileArea(String[][] area)
     {
         this.area = area;
         resolution = area[0][0].length();

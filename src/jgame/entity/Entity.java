@@ -1,6 +1,6 @@
 package jgame.entity;
 
-import jgame.level.Level;
+import java.awt.Rectangle;
 import jgame.math.Vec2;
 
 /**
@@ -9,7 +9,7 @@ import jgame.math.Vec2;
  * Even the player is an entity.
  * @author hector
  */
-public class Entity
+abstract public class Entity
 {
     private String name;
     protected Vec2 pos;
@@ -27,7 +27,7 @@ public class Entity
         this.name = name;
         this.topLeft = topLeft;
         this.bottomRight = bottomRight;
-        
+
         pos = new Vec2(0, 0);
         shouldDie = false;
     }

@@ -1,5 +1,6 @@
 package jgame.level;
 
+import jgame.level.area.TileArea;
 import java.util.ArrayList;
 import java.util.List;
 import jgame.Debug;
@@ -103,7 +104,7 @@ public class EntityMap
     
     public void send(MessageType msg, Entity from, TileArea area)
     {   
-        for(Vec2Int subtile : area.getSubtiles(subtileDim, SUBTILE_COUNT))
+        for(Vec2Int subtile : area.getSubtiles(subtileDim))
         {
             if(subtile.x < 0 || subtile.y < 0)
                 continue;

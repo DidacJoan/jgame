@@ -2,7 +2,7 @@ package jgame.entity;
 
 import jgame.entity.mob.Action;
 import jgame.level.Level;
-import jgame.level.TileArea;
+import jgame.level.area.TileArea;
 import jgame.math.Vec2;
 import jgame.utils.IntegerEnum;
 
@@ -53,9 +53,9 @@ public class Mob extends Entity
         return moving;
     }
     
-    public void send(MessageType msg, TileArea area)
+    public void attack(TileArea area)
     {
-        level.send(this, msg, area);
+        level.send(this, MessageType.DAMAGE, area);
     }
     
     public void setAction(IntegerEnum id, Action action)
@@ -83,7 +83,7 @@ public class Mob extends Entity
     @Override
     public void render()
     {
-        actions[currentAction.getValue()].render(pos);
+        actions[currentAction.getValue()].render();
         moving = false;
     }
     

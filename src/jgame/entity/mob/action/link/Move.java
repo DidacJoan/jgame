@@ -4,8 +4,6 @@ import jgame.entity.mob.Action;
 import jgame.entity.Dir;
 import jgame.entity.Mob;
 import jgame.entity.mob.action.LinkAction;
-import jgame.level.EntityMap;
-import jgame.level.TileMap;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.Input;
@@ -18,7 +16,6 @@ import org.newdawn.slick.SlickException;
 public class Move extends Action
 {
     private static final String     NAME            =   "move";
-    private static final String     ENTITY          =   "link";
     private static final Vec2[]     ENTITY_POS      =   { new Vec2(), new Vec2(), new Vec2(), new Vec2() };
     private static final Vec2Int    DIM             =   new Vec2Int(21, 27);
     private static final int[]      SPRITE_COUNT    =   {7, 7, 7, 7};
@@ -58,7 +55,7 @@ public class Move extends Action
     {
         int index = mob.getFacing().getValue();
         
-        setAnim(index);
+        setIndex(index);
         standByAnim();
     }
     
@@ -87,7 +84,7 @@ public class Move extends Action
             i++;
         }
         
-        setAnim(mob.getFacing().getValue());
+        setIndex(mob.getFacing().getValue());
         
         if(mob.isMoving())
             updateAnim(delta);
