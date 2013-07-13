@@ -23,7 +23,6 @@ public class Level
     private TileMap map;
     private EntityMap entities;
     
-    
     public Level(String name) throws SlickException
     {
         map = new TileMap(name);

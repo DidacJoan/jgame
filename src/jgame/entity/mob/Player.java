@@ -1,5 +1,6 @@
 package jgame.entity.mob;
 
+import jgame.Debug;
 import jgame.entity.Mob;
 import jgame.entity.mob.action.LinkAction;
 import jgame.entity.mob.action.link.AttackSword;
@@ -19,6 +20,7 @@ public class Player extends Mob
     private static final Vec2 BOT_R = new Vec2(17.0, 27.0);
     
     private Input input;
+    private boolean toggle;
     
     public Player(Level level, Input input) throws SlickException
     {
@@ -28,6 +30,21 @@ public class Player extends Mob
         
         setAction(LinkAction.MOVE, new Move(this, "shield"));
         setAction(LinkAction.ATTACK_SWORD, new AttackSword(this));
+    }
+    
+    @Override
+    public void update(int delta)
+    {
+        super.update(delta);
+        
+        if(input.isKeyDown(Input.KEY_D))
+            toggle = true;
+        
+        else if(toggle)
+        {
+            Debug.toggle();
+            toggle = false;
+        }
     }
     
     @Override

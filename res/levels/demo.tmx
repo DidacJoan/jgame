@@ -6,7 +6,7 @@
   <property name="entranceY" value="19"/>
  </properties>
  <tileset firstgid="1" name="lttp" tilewidth="16" tileheight="16">
-  <image source="../tilesets/lttp.png" trans="ff40ff" width="576" height="570"/>
+  <image source="tilesets/lttp.png" trans="ff40ff" width="576" height="570"/>
  </tileset>
  <layer name="Field" width="20" height="20">
   <properties>

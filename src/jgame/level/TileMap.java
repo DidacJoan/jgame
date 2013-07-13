@@ -24,7 +24,7 @@ public class TileMap extends TiledMapPlus implements TileBasedMap {
     
     public TileMap(String name) throws SlickException
     {
-        super("res/levels/" + name + ".tmx");
+        super("levels/" + name + ".tmx");
         this.name = name;
         
         load();

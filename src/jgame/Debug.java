@@ -23,6 +23,11 @@ public class Debug {
         enabled = true;
     }
     
+    public static void toggle()
+    {
+        enabled = !enabled;
+    }
+    
     public static void addPoint(Vec2 point)
     {
         points.add(point.div(new Vec2Int(4, 4)));

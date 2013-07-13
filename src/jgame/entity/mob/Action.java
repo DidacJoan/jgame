@@ -14,7 +14,7 @@ import org.newdawn.slick.SpriteSheet;
  */
 abstract public class Action
 {
-    public static String PATH_CHARSETS = "res/charsets/";
+    public static String PATH_CHARSETS = "charsets/";
     
     protected Mob mob;
     private Vec2[] entityPos;

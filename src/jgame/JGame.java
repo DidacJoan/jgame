@@ -57,6 +57,7 @@ public class JGame extends BasicGame
     public void update(GameContainer container, int delta) throws SlickException
     {
         level.update(delta);
+        
         updated = true;
     }
     
