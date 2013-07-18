@@ -1,8 +1,8 @@
 package jgame.level;
 
 import jgame.level.area.TileArea;
-import jgame.entity.Dir;
-import jgame.entity.Entity;
+import jgame.utils.Dir;
+import jgame.Entity;
 import jgame.entity.MessageType;
 import jgame.entity.Mob;
 import jgame.entity.mob.Link;

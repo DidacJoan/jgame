@@ -1,4 +1,4 @@
-package jgame.entity;
+package jgame.utils;
 
 import jgame.math.Vec2;
 import jgame.utils.IntegerEnum;

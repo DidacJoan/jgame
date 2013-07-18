@@ -1,12 +1,10 @@
 package jgame.entity.mob.action.link;
 
 import jgame.entity.mob.Action;
-import jgame.entity.Dir;
+import jgame.utils.Dir;
 import jgame.entity.Mob;
-import jgame.entity.mob.action.LinkAction;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -20,23 +18,7 @@ public class Move extends Action
     private static final Vec2Int    DIM             =   new Vec2Int(21, 27);
     private static final int[]      SPRITE_COUNT    =   {7, 7, 7, 7};
     private static final int[]      SPRITE_SPEED    =   {50, 50, 50, 50};
-    
     private static final int        SPRITE_STAND    =   3;
-    private static final int[]      KEYS            =   {
-                                                            Input.KEY_DOWN,
-                                                            Input.KEY_UP,
-                                                            Input.KEY_RIGHT,
-                                                            Input.KEY_LEFT
-                                                        };
-    
-    private static final Dir[]      KEY_DIR         =   {
-                                                            Dir.DOWN,
-                                                            Dir.UP,
-                                                            Dir.RIGHT,
-                                                            Dir.LEFT
-                                                        };
-    
-    private boolean movingBefore;
     
     public Move(Mob entity, String type) throws SlickException
     {
@@ -60,30 +42,8 @@ public class Move extends Action
     }
     
     @Override
-    public void transition()
-    {
-        if(mob.hasKeyDown(Input.KEY_Z))
-            mob.changeAction(LinkAction.ATTACK_SWORD);
-    }
-    
-    @Override
     public void update(int delta)
     {
-        Dir facing = mob.getFacing();
-        
-        if(mob.hasKeyDown(KEYS[facing.getValue()]))
-            mob.move(facing, delta);
-        
-        int i = 0;
-        
-        for(int key : KEYS)
-        {
-            if(KEY_DIR[i] != facing && mob.hasKeyDown(key))
-                mob.move(KEY_DIR[i], delta);
-            
-            i++;
-        }
-        
         setIndex(mob.getFacing().getValue());
         
         if(mob.isMoving())
@@ -95,5 +55,11 @@ public class Move extends Action
     private void standByAnim()
     {
         getCurrentAnim().setCurrentFrame(SPRITE_STAND);
+    }
+    
+    @Override
+    public boolean isBlocking()
+    {
+        return false;
     }
 }

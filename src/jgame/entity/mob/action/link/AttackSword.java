@@ -2,7 +2,6 @@ package jgame.entity.mob.action.link;
 
 import jgame.entity.Mob;
 import jgame.entity.mob.DamageAction;
-import jgame.entity.mob.action.LinkAction;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.SlickException;
@@ -38,13 +37,6 @@ public class AttackSword extends DamageAction
     }
     
     @Override
-    public void transition()
-    {
-        if(getCurrentAnim().isStopped())
-            mob.changeAction(LinkAction.MOVE);
-    }
-    
-    @Override
     public void update(int delta)
     {
         if(! updateAnim(delta))
@@ -57,5 +49,11 @@ public class AttackSword extends DamageAction
     public void leave()
     {
         getCurrentAnim().restart();
+    }
+    
+    @Override
+    public boolean isFinished()
+    {
+        return getCurrentAnim().isStopped();
     }
 }

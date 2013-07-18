@@ -1,6 +1,6 @@
 package jgame.level;
 
-import jgame.entity.Dir;
+import jgame.utils.Dir;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.Image;

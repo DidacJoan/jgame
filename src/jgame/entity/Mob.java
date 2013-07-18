@@ -1,10 +1,15 @@
 package jgame.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+import jgame.utils.Dir;
+import jgame.Entity;
 import jgame.entity.mob.Action;
+import jgame.entity.mob.ia.IA;
+import jgame.entity.mob.ia.Wander;
 import jgame.level.Level;
 import jgame.level.area.TileArea;
 import jgame.math.Vec2;
-import jgame.utils.IntegerEnum;
 
 /**
  *
@@ -15,16 +20,19 @@ public class Mob extends Entity
     protected Level level;
     private Dir facing;
     private boolean moving;
-    private Action[] actions;
-    private IntegerEnum currentAction;
+    private List<Action> attackActions;
+    private Action moveAction;
+    private Action currentAction;
+    private IA ia;
     
-    public Mob(String name, Level level, Vec2 topLeft, Vec2 bottomRight, int numActions)
+    public Mob(String name, Level level, Vec2 topLeft, Vec2 bottomRight)
     {
         super(name, topLeft, bottomRight);
         this.level = level;
         facing = Dir.UP;
         moving = false;
-        actions = new Action[numActions];
+        attackActions = new ArrayList();
+        ia = new Wander(this);
     }
     
     public void setFacing(Dir facing)
@@ -53,42 +61,62 @@ public class Mob extends Entity
         return moving;
     }
     
+    public boolean canMove()
+    {
+        return !currentAction.isBlocking();
+    }
+    
+    public void addAttack(Action action)
+    {
+        attackActions.add(action);
+    }
+    
+    public void attack()
+    {
+        changeAction(attackActions.get(0));
+    }
+    
     public void attack(TileArea area)
     {
         level.send(this, MessageType.DAMAGE, area);
     }
     
-    public void setAction(IntegerEnum id, Action action)
+    public void setMove(Action action)
     {
-        actions[id.getValue()] = action;
+        if(currentAction == null || currentAction == moveAction)
+            currentAction = action;
         
-        if(currentAction == null)
-            currentAction = id;
+        moveAction = action;
     }
     
-    public void changeAction(IntegerEnum action)
+    public void changeAction(Action action)
     {
-        actions[currentAction.getValue()].leave();
+        currentAction.leave();
         currentAction = action;
-        actions[currentAction.getValue()].enter();
+        currentAction.enter();
+    }
+    
+    public void setIA(IA ia)
+    {
+        this.ia = ia;
     }
     
     @Override
     public void update(int delta)
     {
-        actions[currentAction.getValue()].transition();
-        actions[currentAction.getValue()].update(delta);
+        if(canMove())
+            ia.update(delta);
+        
+        if(currentAction.isFinished())
+            changeAction(moveAction);
+        
+        currentAction.update(delta);
     }
     
     @Override
     public void render()
     {
-        actions[currentAction.getValue()].render();
+        currentAction.render();
         moving = false;
-    }
-    
-    public boolean hasKeyDown(int code)
-    {
-        return false;
     }
 }

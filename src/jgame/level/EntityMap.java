@@ -4,7 +4,7 @@ import jgame.level.area.TileArea;
 import java.util.ArrayList;
 import java.util.List;
 import jgame.Debug;
-import jgame.entity.Entity;
+import jgame.Entity;
 import jgame.entity.MessageType;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;

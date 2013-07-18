@@ -1,5 +1,6 @@
 package jgame.entity;
 
+import jgame.Entity;
 import org.newdawn.slick.Image;
 
 /**

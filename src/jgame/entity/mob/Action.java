@@ -1,6 +1,6 @@
 package jgame.entity.mob;
 
-import jgame.entity.Dir;
+import jgame.utils.Dir;
 import jgame.entity.Mob;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
@@ -87,7 +87,6 @@ abstract public class Action
         return mob.getPos().sub(entityPos[animCurrent]);
     }
     
-    abstract public void transition();
     abstract public void update(int delta);
     
     public void enter()
@@ -98,5 +97,15 @@ abstract public class Action
     public void leave()
     {
         
+    }
+    
+    public boolean isBlocking()
+    {
+        return true;
+    }
+    
+    public boolean isFinished()
+    {
+        return false;
     }
 }

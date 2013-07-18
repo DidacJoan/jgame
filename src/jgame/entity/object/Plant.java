@@ -1,6 +1,6 @@
 package jgame.entity.object;
 
-import jgame.entity.Entity;
+import jgame.Entity;
 import jgame.entity.MapObject;
 import jgame.entity.MessageType;
 import org.newdawn.slick.Image;

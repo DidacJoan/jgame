@@ -1,6 +1,7 @@
 package jgame;
 
 import jgame.entity.mob.Link;
+import jgame.entity.mob.ia.Player;
 import jgame.level.Level;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -48,9 +49,12 @@ public class JGame extends BasicGame
         Debug.enable();
         
         level = new Level("demo");
-        Link player = new Link(level, container.getInput());
         
-        level.setPlayer(player, "entrance");
+        Link link = new Link(level);
+        Player player = new Player(link, container.getInput());
+        link.setIA(player);
+        
+        level.setPlayer(link, "entrance");
     }
 
     @Override

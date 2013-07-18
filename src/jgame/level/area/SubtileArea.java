@@ -2,8 +2,8 @@ package jgame.level.area;
 
 import java.util.ArrayList;
 import java.util.List;
-import jgame.entity.Dir;
-import jgame.entity.Entity;
+import jgame.utils.Dir;
+import jgame.Entity;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 

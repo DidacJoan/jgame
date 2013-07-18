@@ -1,6 +1,7 @@
-package jgame.entity;
+package jgame;
 
 import java.awt.Rectangle;
+import jgame.entity.MessageType;
 import jgame.math.Vec2;
 
 /**
