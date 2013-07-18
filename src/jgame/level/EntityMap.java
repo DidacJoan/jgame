@@ -2,7 +2,10 @@ package jgame.level;
 
 import jgame.level.area.TileArea;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import jgame.Debug;
 import jgame.Entity;
 import jgame.entity.MessageType;
@@ -19,16 +22,15 @@ public class EntityMap
     private static final Vec2Int SUBTILE_COUNT = new Vec2Int(8, 8);
     
     private List<Entity>[][] map;
-    private List<Entity> entities;
-    
-    Vec2Int subtileDim;
+    private Vec2Int subtileDim;
+    private TreeSet<Entity> entities;
     
     public EntityMap(int width, int height, int tileWidth, int tileHeight)
     {
         map = new List[height*SUBTILE_COUNT.y][width*SUBTILE_COUNT.x];
         initMap();
         
-        entities = new ArrayList();
+        entities = new TreeSet();
         subtileDim = new Vec2Int(tileWidth, tileHeight).div(SUBTILE_COUNT);
     }
     
@@ -65,20 +67,21 @@ public class EntityMap
     
     public void removeDead()
     {
-        List<Entity> new_entities = new ArrayList();
+        Iterator<Entity> it = entities.iterator();
         
-        for(Entity e : entities)
+        while(it.hasNext())
         {
+            Entity e = it.next();
+            
             if(e.shouldDie())
+            {
                 free(e);
-            else
-                new_entities.add(e);
+                it.remove();
+            }
         }
-        
-        entities = new_entities;
     }
     
-    public List<Entity> getEntities()
+    public Set<Entity> getEntities()
     {
         return entities;
     }
@@ -121,14 +124,20 @@ public class EntityMap
     
     public void update(int delta)
     {
-        for(Entity e : getEntities())
+        TreeSet<Entity> entitiesUpdated = new TreeSet();
+        
+        for(Entity e : entities)
         {
             free(e);
             e.update(delta);
             lock(e);
             
             Debug.addPoint(e.getCenter());
+            
+            entitiesUpdated.add(e);
         }
+        
+        entities = entitiesUpdated;
     }
     
     private List<Vec2Int> getSubtiles(Entity entity)

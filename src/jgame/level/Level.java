@@ -47,7 +47,17 @@ public class Level
     {
         Entity e;
         
-        e = new Plant(object.width, object.height, map.getImage(object));
+        // @TODO Entity factory
+        
+        switch(object.type)
+        {
+            case "plant":
+                e = new Plant(object.width, object.height, map.getImage(object));
+                break;
+                
+            default:
+                e = new Link(this);
+        }
         
         e.setPos(object.x, object.y - object.height);
         entities.add(e);

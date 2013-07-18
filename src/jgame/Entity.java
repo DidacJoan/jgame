@@ -1,6 +1,5 @@
 package jgame;
 
-import java.awt.Rectangle;
 import jgame.entity.MessageType;
 import jgame.math.Vec2;
 
@@ -10,7 +9,7 @@ import jgame.math.Vec2;
  * Even the player is an entity.
  * @author hector
  */
-abstract public class Entity
+abstract public class Entity implements Comparable<Entity>
 {
     private String name;
     protected Vec2 pos;
@@ -122,5 +121,14 @@ abstract public class Entity
     public void render()
     {
         
+    }
+    
+    @Override
+    public int compareTo(Entity entity)
+    {
+        if(pos.y <= entity.pos.y)
+            return -1;
+        else
+            return 1;
     }
 }

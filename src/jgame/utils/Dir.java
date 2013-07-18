@@ -1,7 +1,6 @@
 package jgame.utils;
 
 import jgame.math.Vec2;
-import jgame.utils.IntegerEnum;
 
 /**
  * Represents the directions available in the game.

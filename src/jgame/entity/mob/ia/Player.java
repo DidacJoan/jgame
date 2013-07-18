@@ -1,5 +1,6 @@
 package jgame.entity.mob.ia;
 
+import jgame.Debug;
 import jgame.entity.Mob;
 import jgame.utils.Dir;
 import org.newdawn.slick.Input;
@@ -14,12 +15,14 @@ public class Player extends IA
     private static final Dir[] KEYS_DIR = { Dir.DOWN, Dir.UP, Dir.RIGHT, Dir.LEFT };
     
     private Input input;
+    private boolean toggle;
     
     public Player(Mob mob, Input input)
     {
         super(mob);
         
         this.input = input;
+        toggle = false;
     }
     
     @Override
@@ -27,9 +30,10 @@ public class Player extends IA
     {
         checkMove(delta);
         checkAttack();
+        checkDebug();
     }
     
-    public void checkMove(int delta)
+    private void checkMove(int delta)
     {
         Dir facing = mob.getFacing();
         
@@ -47,9 +51,21 @@ public class Player extends IA
         }
     }
     
-    public void checkAttack()
+    private void checkAttack()
     {
         if(input.isKeyDown(Input.KEY_Z))
             mob.attack();
+    }
+    
+    private void checkDebug()
+    {
+        if(input.isKeyDown(Input.KEY_D))
+            toggle = true;
+        
+        else if(toggle)
+        {
+            Debug.toggle();
+            toggle = false;
+        }
     }
 }

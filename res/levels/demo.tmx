@@ -70,5 +70,6 @@
   <object name="plant" type="plant" gid="777" x="80" y="144" width="16" height="16"/>
   <object name="plant" type="plant" gid="777" x="96" y="144" width="16" height="16"/>
   <object name="plant" type="plant" gid="777" x="128" y="144" width="16" height="16"/>
+  <object name="link" type="npc" x="160" y="144" width="16" height="16"/>
  </objectgroup>
 </map>
