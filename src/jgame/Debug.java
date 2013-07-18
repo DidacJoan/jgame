@@ -30,7 +30,7 @@ public class Debug {
     
     public static void addPoint(Vec2 point)
     {
-        points.add(point.div(new Vec2Int(4, 4)));
+        points.add(new Vec2Int((int)point.x, (int)point.y));
     }
     
     public static void addPoint(Vec2Int point)
@@ -48,7 +48,7 @@ public class Debug {
         if(enabled)
         {
             for(Vec2Int point : points)
-                g.drawRect(point.x*4, point.y*4, 4, 4);
+                g.drawRect(point.x, point.y, 1, 1);
             
             for(Vec2 key : images.keySet())
                 g.drawImage(images.get(key), (float) key.x, (float) key.y);

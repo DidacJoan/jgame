@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
  * Represents the player in the game.
  * @author hector
  */
-public class Player extends Mob
+public class Link extends Mob
 {
     private static final Vec2 TOP_L = new Vec2(4.0, 13.0);
     private static final Vec2 BOT_R = new Vec2(17.0, 27.0);
@@ -22,7 +22,7 @@ public class Player extends Mob
     private Input input;
     private boolean toggle;
     
-    public Player(Level level, Input input) throws SlickException
+    public Link(Level level, Input input) throws SlickException
     {
         super("link", level, TOP_L, BOT_R, LinkAction.size);
         

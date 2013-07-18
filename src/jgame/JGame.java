@@ -1,6 +1,6 @@
 package jgame;
 
-import jgame.entity.mob.Player;
+import jgame.entity.mob.Link;
 import jgame.level.Level;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -32,7 +32,7 @@ public class JGame extends BasicGame
             AppGameContainer app = new AppGameContainer(new JGame());
             app.setDisplayMode(800, 600, false);
             app.setTargetFrameRate(framerate);
-            app.setVSync(true);
+            //app.setVSync(true); // This seems to cause some render delays?
             app.setMinimumLogicUpdateInterval(1000 / framerate);
             app.start();
         }
@@ -48,7 +48,7 @@ public class JGame extends BasicGame
         Debug.enable();
         
         level = new Level("demo");
-        Player player = new Player(level, container.getInput());
+        Link player = new Link(level, container.getInput());
         
         level.setPlayer(player, "entrance");
     }

@@ -5,7 +5,7 @@ import jgame.entity.Dir;
 import jgame.entity.Entity;
 import jgame.entity.MessageType;
 import jgame.entity.Mob;
-import jgame.entity.mob.Player;
+import jgame.entity.mob.Link;
 import jgame.entity.object.Plant;
 import jgame.math.Vec2;
 import org.newdawn.slick.Graphics;
@@ -53,7 +53,7 @@ public class Level
         entities.add(e);
     }
     
-    public void setPlayer(Player p, String locationName)
+    public void setPlayer(Link p, String locationName)
     {
         Location location = map.getLocation(locationName);
         

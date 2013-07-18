@@ -16,7 +16,7 @@ import jgame.math.Vec2Int;
  */
 public class EntityMap
 {
-    private static final Vec2Int SUBTILE_COUNT = new Vec2Int(4, 4);
+    private static final Vec2Int SUBTILE_COUNT = new Vec2Int(8, 8);
     
     private List<Entity>[][] map;
     private List<Entity> entities;
@@ -112,7 +112,7 @@ public class EntityMap
             if(subtile.x >= map[0].length || subtile.y >= map.length)
                 continue;
             
-            Debug.addPoint(subtile);
+            Debug.addPoint(subtile.mul(subtileDim));
             
             for(Entity e : map[subtile.y][subtile.x])
                 e.receive(msg, from);
