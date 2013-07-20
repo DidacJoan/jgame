@@ -19,7 +19,6 @@ public class JGame extends BasicGame
     private static final int framerate = 60;
     
     private Level level;
-    private boolean updated = false;
     
     public JGame()
     {
@@ -34,7 +33,7 @@ public class JGame extends BasicGame
             app.setDisplayMode(800, 600, false);
             app.setTargetFrameRate(framerate);
             //app.setVSync(true); // This seems to cause some render delays?
-            app.setMinimumLogicUpdateInterval(1000 / framerate);
+            app.setMaximumLogicUpdateInterval(1000 / framerate);
             app.start();
         }
         catch (SlickException e)
@@ -61,8 +60,6 @@ public class JGame extends BasicGame
     public void update(GameContainer container, int delta) throws SlickException
     {
         level.update(delta);
-        
-        updated = true;
     }
     
     @Override
@@ -70,7 +67,5 @@ public class JGame extends BasicGame
     {
         level.render(g);
         Debug.render(g);
-        
-        updated = false;
     }
 }
