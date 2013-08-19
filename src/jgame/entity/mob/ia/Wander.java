@@ -6,12 +6,12 @@ import jgame.utils.Dir;
 
 /**
  *
- * @author Hector
+ * @author hector
  */
 public class Wander extends IA
 {
     private static final int DIR_TIMEOUT = 300;
-    private Dir selected;
+    private Dir direction;
     private int time;
     
     public Wander(Mob mob)
@@ -34,7 +34,7 @@ public class Wander extends IA
             mob.attack();
         }
         else
-            mob.move(selected, delta);
+            mob.move(direction, delta);
     }
     
     private void selectDir()
@@ -47,6 +47,6 @@ public class Wander extends IA
         if(randInt < 0)
             randInt *= -1;
         
-        selected = dirs[randInt % dirs.length];
+        direction = dirs[randInt % dirs.length];
     }
 }

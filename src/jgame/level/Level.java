@@ -1,13 +1,13 @@
 package jgame.level;
 
-import jgame.level.area.TileArea;
-import jgame.utils.Dir;
 import jgame.Entity;
 import jgame.entity.MessageType;
 import jgame.entity.Mob;
 import jgame.entity.mob.Link;
 import jgame.entity.object.Plant;
+import jgame.level.area.TileArea;
 import jgame.math.Vec2;
+import jgame.utils.Dir;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.GroupObject;
