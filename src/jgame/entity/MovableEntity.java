@@ -22,7 +22,6 @@ abstract public class MovableEntity extends Entity
     private Action moveAction;
     private Action currentAction;
 
-    
     public MovableEntity(String name, Level level, Vec2 topLeft, Vec2 bottomRight)
     {
         super(name, topLeft, bottomRight);
@@ -52,6 +51,12 @@ abstract public class MovableEntity extends Entity
         }
         
         level.move(this, dir, delta);
+    }
+    
+    @Override
+    public boolean isMovable()
+    {
+        return true;
     }
     
     public boolean isMoving()

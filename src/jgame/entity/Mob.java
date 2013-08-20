@@ -1,7 +1,7 @@
 package jgame.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import jgame.Entity;
 import jgame.entity.mob.AI;
 import jgame.entity.mob.ia.Follower;
 import jgame.level.Level;
@@ -54,17 +54,12 @@ public class Mob extends MovableEntity
             move(wanderDirection, delta);
     }
     
-    public List<Mob> seek(int radius)
+    public Set<Entity> seek(int radius)
     {
-        List<Mob> mobs = new ArrayList();
-        
-        // Level responsability
-        // return level.seek(pos, radius); // Maybe?
-        
-        return mobs;
+        return level.seek(getCenter(), radius); // Maybe?
     }
     
-    public void follow(MovableEntity mob)
+    public void goTo(Entity entity)
     {
         // Pathfinding goes here using Level
         // A* algorithm with Manhattan heuristic

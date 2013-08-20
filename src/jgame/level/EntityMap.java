@@ -1,6 +1,7 @@
 package jgame.level;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -95,7 +96,7 @@ public class EntityMap
     {
         return entities;
     }
-    
+
     public boolean handleCollisions(Entity e, Vec2 pos)
     {
         boolean collides = false;
@@ -119,10 +120,7 @@ public class EntityMap
     {   
         for(Vec2Int subtile : area.getSubtiles(SUBTILE_DIM))
         {
-            if(subtile.x < 0 || subtile.y < 0)
-                continue;
-            
-            if(subtile.x >= map[0].length || subtile.y >= map.length)
+            if(!isSubtileValid(subtile))
                 continue;
             
             Debug.highlight(Color.blue, subtile);
@@ -148,6 +146,32 @@ public class EntityMap
         entities = entitiesUpdated;
     }
     
+    public Set<Entity> seek(Vec2 pos, int radius)
+    {
+        Set<Entity> foundEntities = new HashSet();
+        
+        // First approach. Rectangle area
+        // @TODO Round area? Spiral?
+        
+        Vec2Int centerSubtile = getSubtile(pos);
+        Vec2Int topLeft = centerSubtile.sub(radius);
+        Vec2Int bottomRight = centerSubtile.add(radius);
+        
+        for(int x = topLeft.x; x < bottomRight.x; ++x)
+        {
+            for(int y = topLeft.y; y < bottomRight.y; ++y)
+            {
+                if(isSubtileValid(x, y))
+                {
+                    foundEntities.addAll(map[y][x]);
+                    Debug.highlight(Color.orange, new Vec2Int(x, y));
+                }
+            }
+        }
+        
+        return foundEntities;
+    }
+    
     private List<Vec2Int> getSubtiles(Entity entity)
     {
         return getSubtiles(entity, entity.getPos());
@@ -157,13 +181,34 @@ public class EntityMap
     {
         List<Vec2Int> subtiles = new ArrayList();
         
-        Vec2Int subtilesTop = entity.getTopLeft(pos).div(SUBTILE_DIM);
-        Vec2Int subtilesBot = entity.getBottomRight(pos).div(SUBTILE_DIM);
+        Vec2Int subtilesTop = getSubtile(entity.getTopLeft(pos));
+        Vec2Int subtilesBot = getSubtile(entity.getBottomRight(pos));
         
         for(int i = subtilesTop.y; i <= subtilesBot.y; ++i)
             for(int j = subtilesTop.x; j <= subtilesBot.x; ++j)
                 subtiles.add(new Vec2Int(j, i));
         
         return subtiles;
+    }
+    
+    private Vec2Int getSubtile(Vec2 pos)
+    {
+        return pos.div(SUBTILE_DIM);
+    }
+    
+    private boolean isSubtileValid(Vec2Int subtile)
+    {
+        return isSubtileValid(subtile.x, subtile.y);
+    }
+        
+    private boolean isSubtileValid(int x, int y)
+    {
+        if(x < 0 || y < 0)
+            return false;
+            
+        if(x >= map[0].length || y >= map.length)
+            return false;
+        
+        return true;
     }
 }

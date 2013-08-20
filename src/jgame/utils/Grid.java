@@ -15,6 +15,7 @@ import org.newdawn.slick.Graphics;
 public class Grid
 {
     private static final Color COLOR = new Color(255f, 255f, 255f, 0.3f);
+    private static final Color[] ORDER = new Color[]{ Color.blue, Color.red, Color.orange };
     
     private int width;
     private int height;
@@ -39,15 +40,18 @@ public class Grid
         for(int j = 0; j < height; j += subtileDim)
             g.drawLine(0, j, width, j);
         
-        for(Color color : highlights.keySet())
+        for(int i = ORDER.length - 1; i >= 0; --i)
         {
+            Color color = ORDER[i];
+            
+            if(! highlights.containsKey(color))
+                continue;
+            
             g.setColor(color);
             
             for(Vec2Int subtile : highlights.get(color))
                 g.drawRect(subtile.x * subtileDim, subtile.y * subtileDim, subtileDim, subtileDim);
         }
-        
-        highlights.clear();
     }
     
     public void highlight(Color color, Vec2Int subtile)
@@ -56,5 +60,10 @@ public class Grid
             highlights.put(color, new ArrayList());
         
         highlights.get(color).add(subtile);
+    }
+    
+    public void clear()
+    {
+        highlights.clear();
     }
 }

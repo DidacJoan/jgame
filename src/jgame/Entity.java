@@ -123,6 +123,11 @@ abstract public class Entity implements Comparable<Entity>
         
     }
     
+    public boolean isMovable()
+    {
+        return false;
+    }
+    
     @Override
     public int compareTo(Entity entity)
     {

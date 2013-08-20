@@ -20,7 +20,7 @@ public class Debug
     private static List<Vec2Int> points = new ArrayList();
     private static Map<Vec2, Image> images = new HashMap();
     private static boolean enabled = false;
-    private static Grid grid;
+    private static Grid grid = new Grid(0, 0, 1);
     
     public static void enable()
     {
@@ -51,11 +51,12 @@ public class Debug
     {
         if(enabled)
         {
-            drawGrid(g);
+            grid.draw(g);
             drawPoints(g);
             drawImages(g);
         }
         
+        grid.clear();
         points.clear();
     }
     
@@ -66,16 +67,7 @@ public class Debug
     
     public static void highlight(Color color, Vec2Int subtile)
     {
-        if(grid == null)
-            return;
-        
         grid.highlight(color, subtile);
-    }
-    
-    private static void drawGrid(Graphics g)
-    {
-        if(grid != null)
-            grid.draw(g);
     }
     
     private static void drawPoints(Graphics g)

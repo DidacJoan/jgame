@@ -1,8 +1,8 @@
 package jgame.level;
 
+import java.util.Set;
 import jgame.Entity;
 import jgame.entity.MessageType;
-import jgame.entity.Mob;
 import jgame.entity.MovableEntity;
 import jgame.entity.mob.Link;
 import jgame.entity.object.Plant;
@@ -106,5 +106,10 @@ public class Level
     public void send(Entity mob, MessageType msg, TileArea area)
     {
         entities.send(msg, mob, area);
+    }
+    
+    public Set<Entity> seek(Vec2 pos, int radius)
+    {
+        return entities.seek(pos, radius);
     }
 }

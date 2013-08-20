@@ -1,6 +1,7 @@
 package jgame.entity.mob.ia;
 
-import java.util.List;
+import java.util.Set;
+import jgame.Entity;
 import jgame.entity.Mob;
 import jgame.entity.mob.AI;
 
@@ -13,7 +14,7 @@ public class Follower extends AI
 {
     private static final int SEEK_RADIUS = 10;
     
-    private Mob target;
+    private Entity target;
     
     public Follower(Mob mob)
     {
@@ -27,16 +28,26 @@ public class Follower extends AI
             seek(delta);
         
         else
-            mob.follow(target);
+            mob.goTo(target);
     }
     
     private void seek(int delta)
     {
         mob.wander(delta); // Wander a little
         
-        List<Mob> mobs = mob.seek(SEEK_RADIUS);
+        Set<Entity> entities = mob.seek(SEEK_RADIUS);
         
-        if(!mobs.isEmpty())
-            target = mobs.get(0); // Target mob is the first one detected
+        if(!entities.isEmpty())
+        {
+            // Find an Entity that can move
+            for(Entity e : entities)
+            {
+                if(e.isMovable())
+                {
+                    target = e;
+                    return;
+                }
+            }
+        }
     }
 }
