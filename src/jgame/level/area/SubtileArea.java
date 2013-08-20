@@ -2,10 +2,10 @@ package jgame.level.area;
 
 import java.util.ArrayList;
 import java.util.List;
-import jgame.utils.Dir;
 import jgame.Entity;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
+import jgame.utils.Dir;
 
 /**
  * Represents an area of tiles.

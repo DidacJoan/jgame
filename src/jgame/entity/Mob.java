@@ -2,14 +2,14 @@ package jgame.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import jgame.utils.Dir;
 import jgame.Entity;
 import jgame.entity.mob.Action;
-import jgame.entity.mob.ia.IA;
+import jgame.entity.mob.IA;
 import jgame.entity.mob.ia.Wander;
 import jgame.level.Level;
 import jgame.level.area.TileArea;
 import jgame.math.Vec2;
+import jgame.utils.Dir;
 
 /**
  *

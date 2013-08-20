@@ -30,9 +30,19 @@ public class Vec2Int
         return new Vec2Int(x * v.x, y * v.y);
     }
     
+    public Vec2Int mul(int a)
+    {
+        return new Vec2Int(x * a, y * a);
+    }
+    
     public Vec2Int div(Vec2Int v)
     {
         return new Vec2Int(x / v.x, y / v.y);
+    }
+    
+    public Vec2Int div(int a)
+    {
+        return new Vec2Int(x / a, y / a);
     }
     
     @Override

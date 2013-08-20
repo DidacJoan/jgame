@@ -1,4 +1,4 @@
-package jgame.entity.mob.ia;
+package jgame.entity.mob;
 
 import jgame.entity.Mob;
 

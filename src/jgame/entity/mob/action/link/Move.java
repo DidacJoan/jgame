@@ -1,10 +1,10 @@
 package jgame.entity.mob.action.link;
 
-import jgame.entity.mob.Action;
-import jgame.utils.Dir;
 import jgame.entity.Mob;
+import jgame.entity.mob.Action;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
+import jgame.utils.Dir;
 import org.newdawn.slick.SlickException;
 
 /**

@@ -32,7 +32,6 @@ public class JGame extends BasicGame
             AppGameContainer app = new AppGameContainer(new JGame());
             app.setDisplayMode(800, 600, false);
             app.setTargetFrameRate(framerate);
-            //app.setVSync(true); // This seems to cause some render delays?
             app.setMaximumLogicUpdateInterval(1000 / framerate);
             app.start();
         }

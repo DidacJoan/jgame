@@ -2,6 +2,7 @@ package jgame.entity.mob.ia;
 
 import java.util.Random;
 import jgame.entity.Mob;
+import jgame.entity.mob.IA;
 import jgame.utils.Dir;
 
 /**

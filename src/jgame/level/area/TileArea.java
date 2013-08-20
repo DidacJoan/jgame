@@ -9,5 +9,5 @@ import jgame.math.Vec2Int;
  */
 public interface TileArea
 {
-    public Collection<Vec2Int> getSubtiles(Vec2Int subtileDimension);
+    public Collection<Vec2Int> getSubtiles(int subtileDimension);
 }

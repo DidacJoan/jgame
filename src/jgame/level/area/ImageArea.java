@@ -22,15 +22,15 @@ public class ImageArea implements TileArea
     }
     
     @Override
-    public Collection<Vec2Int> getSubtiles(Vec2Int subtileDimension)
+    public Collection<Vec2Int> getSubtiles(int subtileDimension)
     {
         Collection<Vec2Int> subtiles = new ArrayList();
         
-        int dx = (int) position.x / subtileDimension.x;
-        int dy = (int) position.y / subtileDimension.y;
+        int dx = (int) position.x / subtileDimension;
+        int dy = (int) position.y / subtileDimension;
         
-        int rightLimit = areaInfo.getWidth() / subtileDimension.x;
-        int bottomLimit = areaInfo.getHeight() / subtileDimension.y;
+        int rightLimit = areaInfo.getWidth() / subtileDimension;
+        int bottomLimit = areaInfo.getHeight() / subtileDimension;
         
         for(int x = 0; x < rightLimit; x++)
             for(int y = 0; y < bottomLimit; y++)
@@ -40,13 +40,13 @@ public class ImageArea implements TileArea
         return subtiles;
     }
     
-    public boolean contains(int subtileX, int subtileY, Vec2Int subtileDimension)
+    public boolean contains(int subtileX, int subtileY, int subtileDimension)
     {
-        int rightLimit = (subtileX + 1) * subtileDimension.x;
-        int bottomLimit = (subtileY + 1) * subtileDimension.y;
+        int rightLimit = (subtileX + 1) * subtileDimension;
+        int bottomLimit = (subtileY + 1) * subtileDimension;
         
-        for(int x = subtileX * subtileDimension.x; x < rightLimit; ++x)
-            for(int y = subtileY * subtileDimension.y; y < bottomLimit; ++y)
+        for(int x = subtileX * subtileDimension; x < rightLimit; ++x)
+            for(int y = subtileY * subtileDimension; y < bottomLimit; ++y)
                 if(areaInfo.getColor(x, y).getAlpha() != 0)
                     return true;
         

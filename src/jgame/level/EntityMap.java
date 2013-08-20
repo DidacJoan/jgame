@@ -1,6 +1,5 @@
 package jgame.level;
 
-import jgame.level.area.TileArea;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,8 +8,11 @@ import java.util.TreeSet;
 import jgame.Debug;
 import jgame.Entity;
 import jgame.entity.MessageType;
+import jgame.level.area.TileArea;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
+import jgame.utils.Grid;
+import org.newdawn.slick.Color;
 
 /**
  * An Entity manager.
@@ -19,19 +21,23 @@ import jgame.math.Vec2Int;
  */
 public class EntityMap
 {
-    private static final Vec2Int SUBTILE_COUNT = new Vec2Int(8, 8);
+    private static final int SUBTILE_DIM = 2;
     
     private List<Entity>[][] map;
-    private Vec2Int subtileDim;
+    private Vec2Int subtileCount;
     private TreeSet<Entity> entities;
     
     public EntityMap(int width, int height, int tileWidth, int tileHeight)
     {
-        map = new List[height*SUBTILE_COUNT.y][width*SUBTILE_COUNT.x];
-        initMap();
-        
+        subtileCount = new Vec2Int(tileWidth, tileHeight).div(SUBTILE_DIM);
+        map = new List[height*subtileCount.y][width*subtileCount.x];
         entities = new TreeSet();
-        subtileDim = new Vec2Int(tileWidth, tileHeight).div(SUBTILE_COUNT);
+        
+        // @TODO Debug factory?
+        Grid grid = new Grid(width * tileWidth, height * tileHeight, SUBTILE_DIM);
+        Debug.setGrid(grid);
+        
+        initMap();
     }
     
     private void initMap()
@@ -44,7 +50,11 @@ public class EntityMap
     public void lock(Entity entity)
     {
         for(Vec2Int tile : getSubtiles(entity))
+        {
             map[tile.y][tile.x].add(entity);
+            
+            Debug.highlight(Color.red, tile);
+        }
     }
     
     public void free(Entity entity)
@@ -107,7 +117,7 @@ public class EntityMap
     
     public void send(MessageType msg, Entity from, TileArea area)
     {   
-        for(Vec2Int subtile : area.getSubtiles(subtileDim))
+        for(Vec2Int subtile : area.getSubtiles(SUBTILE_DIM))
         {
             if(subtile.x < 0 || subtile.y < 0)
                 continue;
@@ -115,7 +125,7 @@ public class EntityMap
             if(subtile.x >= map[0].length || subtile.y >= map.length)
                 continue;
             
-            Debug.addPoint(subtile.mul(subtileDim));
+            Debug.highlight(Color.blue, subtile);
             
             for(Entity e : map[subtile.y][subtile.x])
                 e.receive(msg, from);
@@ -132,8 +142,6 @@ public class EntityMap
             e.update(delta);
             lock(e);
             
-            Debug.addPoint(e.getCenter());
-            
             entitiesUpdated.add(e);
         }
         
@@ -149,8 +157,8 @@ public class EntityMap
     {
         List<Vec2Int> subtiles = new ArrayList();
         
-        Vec2Int subtilesTop = entity.getTopLeft(pos).div(subtileDim);
-        Vec2Int subtilesBot = entity.getBottomRight(pos).div(subtileDim);
+        Vec2Int subtilesTop = entity.getTopLeft(pos).div(SUBTILE_DIM);
+        Vec2Int subtilesBot = entity.getBottomRight(pos).div(SUBTILE_DIM);
         
         for(int i = subtilesTop.y; i <= subtilesBot.y; ++i)
             for(int j = subtilesTop.x; j <= subtilesBot.x; ++j)
