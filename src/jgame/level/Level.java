@@ -3,6 +3,7 @@ package jgame.level;
 import jgame.Entity;
 import jgame.entity.MessageType;
 import jgame.entity.Mob;
+import jgame.entity.MovableEntity;
 import jgame.entity.mob.Link;
 import jgame.entity.object.Plant;
 import jgame.level.area.TileArea;
@@ -89,7 +90,7 @@ public class Level
         map.renderLayersAbove(0, 0);
     }
     
-    public void move(Mob mob, Dir dir, long delta)
+    public void move(MovableEntity mob, Dir dir, long delta)
     {
         Vec2 pos = mob.getPos();
         Vec2 intensity = new Vec2(0.1 * delta, 0.1 * delta);
@@ -102,7 +103,7 @@ public class Level
             mob.setPos(newPos);
     }
     
-    public void send(Mob mob, MessageType msg, TileArea area)
+    public void send(Entity mob, MessageType msg, TileArea area)
     {
         entities.send(msg, mob, area);
     }

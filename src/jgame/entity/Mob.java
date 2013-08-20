@@ -2,121 +2,71 @@ package jgame.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import jgame.Entity;
-import jgame.entity.mob.Action;
-import jgame.entity.mob.IA;
-import jgame.entity.mob.ia.Wander;
+import jgame.entity.mob.AI;
+import jgame.entity.mob.ia.Follower;
 import jgame.level.Level;
-import jgame.level.area.TileArea;
 import jgame.math.Vec2;
 import jgame.utils.Dir;
 
 /**
- *
+ * A Mob is a MovableEntity with some moving actions and an artificial intelligence.
  * @author hector
  */
-public class Mob extends Entity
+public class Mob extends MovableEntity
 {
-    protected Level level;
-    private Dir facing;
-    private boolean moving;
-    private List<Action> attackActions;
-    private Action moveAction;
-    private Action currentAction;
-    private IA ia;
+    private AI ai;
+    private static final int WANDER_TIMEOUT = 300;
+    private Dir wanderDirection;
+    private int time;
     
     public Mob(String name, Level level, Vec2 topLeft, Vec2 bottomRight)
     {
-        super(name, topLeft, bottomRight);
-        this.level = level;
-        facing = Dir.UP;
-        moving = false;
-        attackActions = new ArrayList();
-        ia = new Wander(this);
-    }
-    
-    public void setFacing(Dir facing)
-    {
-        this.facing = facing;
-    }
-    
-    public Dir getFacing()
-    {
-        return facing;
-    }
-    
-    public void move(Dir dir, long delta)
-    {
-        if(! moving)
-        {
-            facing = dir;
-            moving = true;
-        }
+        super(name, level, topLeft, bottomRight);
         
-        level.move(this, dir, delta);
+        ai = new Follower(this);
+        wanderDirection = Dir.random();
     }
     
-    public boolean isMoving()
+    public void setAI(AI ia)
     {
-        return moving;
-    }
-    
-    public boolean canMove()
-    {
-        return !currentAction.isBlocking();
-    }
-    
-    public void addAttack(Action action)
-    {
-        attackActions.add(action);
-    }
-    
-    public void attack()
-    {
-        changeAction(attackActions.get(0));
-    }
-    
-    public void attack(TileArea area)
-    {
-        level.send(this, MessageType.DAMAGE, area);
-    }
-    
-    public void setMove(Action action)
-    {
-        if(currentAction == null || currentAction == moveAction)
-            currentAction = action;
-        
-        moveAction = action;
-    }
-    
-    public void changeAction(Action action)
-    {
-        currentAction.leave();
-        currentAction = action;
-        currentAction.enter();
-    }
-    
-    public void setIA(IA ia)
-    {
-        this.ia = ia;
+        this.ai = ia;
     }
     
     @Override
     public void update(int delta)
     {
         if(canMove())
-            ia.update(delta);
+            ai.update(delta);
         
-        if(currentAction.isFinished())
-            changeAction(moveAction);
-        
-        currentAction.update(delta);
+        super.update(delta);
     }
     
-    @Override
-    public void render()
+    public void wander(int delta)
     {
-        currentAction.render();
-        moving = false;
+        time += delta;
+        
+        if(time >= WANDER_TIMEOUT)
+        {
+            wanderDirection = Dir.random();
+            time = 0;
+        }
+        else
+            move(wanderDirection, delta);
+    }
+    
+    public List<Mob> seek(int radius)
+    {
+        List<Mob> mobs = new ArrayList();
+        
+        // Level responsability
+        // return level.seek(pos, radius); // Maybe?
+        
+        return mobs;
+    }
+    
+    public void follow(MovableEntity mob)
+    {
+        // Pathfinding goes here using Level
+        // A* algorithm with Manhattan heuristic
     }
 }

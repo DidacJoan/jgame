@@ -14,6 +14,8 @@ import org.newdawn.slick.Graphics;
  */
 public class Grid
 {
+    private static final Color COLOR = new Color(255f, 255f, 255f, 0.3f);
+    
     private int width;
     private int height;
     private int subtileDim;
@@ -29,7 +31,7 @@ public class Grid
     
     public void draw(Graphics g)
     {
-        g.setColor(new Color(255f, 255f, 255f, 0.5f));
+        g.setColor(COLOR);
         
         for(int i = 0; i < width; i += subtileDim)
             g.drawLine(i, 0, i, height);

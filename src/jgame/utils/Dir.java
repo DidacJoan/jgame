@@ -1,5 +1,6 @@
 package jgame.utils;
 
+import java.util.Random;
 import jgame.math.Vec2;
 
 /**
@@ -16,11 +17,24 @@ public enum Dir implements IntegerEnum
     
     private final int value;
     private final Vec2 vector;
-
+    
     private Dir(Vec2 vector)
     {
         this.value = ordinal();
         this.vector = vector;
+    }
+    
+    public static Dir random()
+    {
+        Dir[] dirs = Dir.values();
+        Random rand = new Random();
+        
+        int randInt = rand.nextInt();
+        
+        if(randInt < 0)
+            randInt *= -1;
+        
+        return dirs[randInt % dirs.length];
     }
     
     public Vec2 getVector()

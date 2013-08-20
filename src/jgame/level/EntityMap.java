@@ -21,7 +21,7 @@ import org.newdawn.slick.Color;
  */
 public class EntityMap
 {
-    private static final int SUBTILE_DIM = 2;
+    private static final int SUBTILE_DIM = 4;
     
     private List<Entity>[][] map;
     private Vec2Int subtileCount;

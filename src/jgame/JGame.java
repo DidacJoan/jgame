@@ -50,7 +50,7 @@ public class JGame extends BasicGame
         
         Link link = new Link(level);
         Player player = new Player(link, container.getInput());
-        link.setIA(player);
+        link.setAI(player);
         
         level.setPlayer(link, "entrance");
     }

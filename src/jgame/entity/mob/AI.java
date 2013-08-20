@@ -6,11 +6,11 @@ import jgame.entity.Mob;
  *
  * @author Hector
  */
-abstract public class IA
+abstract public class AI
 {
     protected Mob mob;
     
-    public IA(Mob mob)
+    public AI(Mob mob)
     {
         this.mob = mob;
     }
