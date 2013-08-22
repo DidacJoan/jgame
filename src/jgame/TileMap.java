@@ -1,8 +1,9 @@
-package jgame.level;
+package jgame;
 
-import jgame.utils.Dir;
+import jgame.level.Location;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
+import jgame.utils.Dir;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.GroupObject;
@@ -142,6 +143,16 @@ public class TileMap extends TiledMapPlus implements TileBasedMap {
             render(x, y, from);
             from++;
         }
+    }
+    
+    public void update(int delta)
+    {
+        
+    }
+    
+    public void render()
+    {
+        renderLayers(0, layerCount, 0, 0);
     }
     
     @Override

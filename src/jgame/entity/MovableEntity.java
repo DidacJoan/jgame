@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import jgame.Entity;
 import jgame.entity.mob.Action;
-import jgame.level.Level;
+import jgame.Level;
 import jgame.level.area.TileArea;
 import jgame.math.Vec2;
 import jgame.utils.Dir;
@@ -81,7 +81,7 @@ abstract public class MovableEntity extends Entity
     
     public void attack(TileArea area)
     {
-        level.send(this, MessageType.DAMAGE, area);
+        level.send(MessageType.DAMAGE, this, area);
     }
     
     public void setMove(Action action)

@@ -2,9 +2,11 @@ package jgame.entity;
 
 import java.util.Set;
 import jgame.Entity;
+import jgame.Level;
 import jgame.entity.mob.AI;
 import jgame.entity.mob.ia.Follower;
-import jgame.level.Level;
+import jgame.level.Path;
+import jgame.level.pathfinding.Pathfinder;
 import jgame.math.Vec2;
 import jgame.utils.Dir;
 
@@ -15,6 +17,7 @@ import jgame.utils.Dir;
 public class Mob extends MovableEntity
 {
     private AI ai;
+    private Pathfinder pathfinder;
     private static final int WANDER_TIMEOUT = 300;
     private Dir wanderDirection;
     private int time;
@@ -24,6 +27,7 @@ public class Mob extends MovableEntity
         super(name, level, topLeft, bottomRight);
         
         ai = new Follower(this);
+        pathfinder = new Pathfinder(level);
         wanderDirection = Dir.random();
     }
     
@@ -59,9 +63,16 @@ public class Mob extends MovableEntity
         return level.seek(getCenter(), radius); // Maybe?
     }
     
-    public void goTo(Entity entity)
+    public Path getPathTo(Entity entity)
+    {   
+        return pathfinder.getPath(this, entity);
+    }
+    
+    public void goTo(Entity entity, int delta)
     {
-        // Pathfinding goes here using Level
-        // A* algorithm with Manhattan heuristic
+        Path path = getPathTo(entity);
+        
+        if(!path.isEmpty())
+            move(path.getFirstStepDirection(), delta);
     }
 }

@@ -3,7 +3,7 @@ package jgame.entity.mob;
 import jgame.entity.Mob;
 import jgame.entity.mob.action.link.AttackSword;
 import jgame.entity.mob.action.link.Move;
-import jgame.level.Level;
+import jgame.Level;
 import jgame.math.Vec2;
 import org.newdawn.slick.SlickException;
 

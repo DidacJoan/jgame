@@ -25,10 +25,10 @@ public class Follower extends AI
     public void update(int delta)
     {
         if(target == null)
-            seek(delta);
+            seek(delta); // Find a target
         
         else
-            mob.goTo(target);
+            mob.goTo(target, delta); // Go to target
     }
     
     private void seek(int delta)

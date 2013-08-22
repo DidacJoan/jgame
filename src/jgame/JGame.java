@@ -2,7 +2,6 @@ package jgame;
 
 import jgame.entity.mob.Link;
 import jgame.entity.mob.ia.Player;
-import jgame.level.Level;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -64,7 +63,7 @@ public class JGame extends BasicGame
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
-        level.render(g);
+        level.render();
         Debug.render(g);
     }
 }

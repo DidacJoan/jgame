@@ -16,8 +16,7 @@ import jgame.utils.Grid;
 import org.newdawn.slick.Color;
 
 /**
- * An Entity manager.
- * Provides methods to manage entities in a tile based map.
+ *
  * @author hector
  */
 public class EntityMap
@@ -25,8 +24,8 @@ public class EntityMap
     private static final int SUBTILE_DIM = 4;
     
     private List<Entity>[][] map;
-    private Vec2Int subtileCount;
     private TreeSet<Entity> entities;
+    private Vec2Int subtileCount;
     
     public EntityMap(int width, int height, int tileWidth, int tileHeight)
     {
@@ -48,12 +47,39 @@ public class EntityMap
                 map[i][j] = new ArrayList();
     }
     
+    public int getHorizontalSubtiles()
+    {
+        return map.length;
+    }
+    
+    public int getVerticalSubtiles()
+    {
+        return map[0].length;
+    }
+    
+    public void update(int delta)
+    {
+        TreeSet<Entity> entitiesUpdated = new TreeSet();
+        
+        for(Entity e : entities)
+        {
+            free(e);
+            e.update(delta);
+            lock(e);
+            
+            entitiesUpdated.add(e);
+        }
+        
+        entities = entitiesUpdated;
+    }
+    
     public void lock(Entity entity)
     {
         for(Vec2Int tile : getSubtiles(entity))
         {
             map[tile.y][tile.x].add(entity);
             
+            Debug.highlight(Color.cyan, getSubtile(entity.getCenter()));
             Debug.highlight(Color.red, tile);
         }
     }
@@ -96,7 +122,7 @@ public class EntityMap
     {
         return entities;
     }
-
+    
     public boolean handleCollisions(Entity e, Vec2 pos)
     {
         boolean collides = false;
@@ -116,8 +142,20 @@ public class EntityMap
         return !collides;
     }
     
+    public Set<Entity> getEntitiesCollidedBy(Entity entity, Vec2Int atSubtile)
+    {
+        Set<Entity> enties = new HashSet();
+        
+        for(Vec2Int subtile : getSubtiles(entity, getPosition(atSubtile)))
+            for(Entity e_collision : map[subtile.y][subtile.x])
+                if(e_collision.collidesWith(entity))
+                    enties.add(e_collision);
+        
+        return enties;
+    }
+    
     public void send(MessageType msg, Entity from, TileArea area)
-    {   
+    {
         for(Vec2Int subtile : area.getSubtiles(SUBTILE_DIM))
         {
             if(!isSubtileValid(subtile))
@@ -128,22 +166,6 @@ public class EntityMap
             for(Entity e : map[subtile.y][subtile.x])
                 e.receive(msg, from);
         }
-    }
-    
-    public void update(int delta)
-    {
-        TreeSet<Entity> entitiesUpdated = new TreeSet();
-        
-        for(Entity e : entities)
-        {
-            free(e);
-            e.update(delta);
-            lock(e);
-            
-            entitiesUpdated.add(e);
-        }
-        
-        entities = entitiesUpdated;
     }
     
     public Set<Entity> seek(Vec2 pos, int radius)
@@ -159,7 +181,7 @@ public class EntityMap
         
         for(int x = topLeft.x; x < bottomRight.x; ++x)
         {
-            for(int y = topLeft.y; y < bottomRight.y; ++y)
+            for(int y = topLeft.y; y <= bottomRight.y; ++y)
             {
                 if(isSubtileValid(x, y))
                 {
@@ -170,6 +192,30 @@ public class EntityMap
         }
         
         return foundEntities;
+    }
+    
+    public List<Vec2Int> getNeighbors(Vec2Int subtile)
+    {
+        List<Vec2Int> neighbors = new ArrayList();
+        
+        Vec2Int topLeft = subtile.sub(1);
+        Vec2Int bottomRight = subtile.add(1);
+        
+        for(int x = topLeft.x; x <= bottomRight.x; ++x)
+        {
+            for(int y = topLeft.y; y <= bottomRight.y; ++y)
+            {
+                if(isSubtileValid(x, y))
+                    neighbors.add(new Vec2Int(x, y));
+            }
+        }
+        
+        return neighbors;
+    }
+    
+    public Vec2 getPosition(Vec2Int subtile)
+    {
+        return new Vec2(subtile.x * SUBTILE_DIM, subtile.y * SUBTILE_DIM);
     }
     
     private List<Vec2Int> getSubtiles(Entity entity)
@@ -191,7 +237,7 @@ public class EntityMap
         return subtiles;
     }
     
-    private Vec2Int getSubtile(Vec2 pos)
+    public Vec2Int getSubtile(Vec2 pos)
     {
         return pos.div(SUBTILE_DIM);
     }

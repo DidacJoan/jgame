@@ -15,7 +15,8 @@ import org.newdawn.slick.Graphics;
 public class Grid
 {
     private static final Color COLOR = new Color(255f, 255f, 255f, 0.3f);
-    private static final Color[] ORDER = new Color[]{ Color.blue, Color.red, Color.orange };
+    private static final Color[] ORDER = new Color[]{ Color.cyan, Color.blue, Color.green, Color.gray,
+        Color.red, Color.orange };
     
     private int width;
     private int height;

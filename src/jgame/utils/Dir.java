@@ -2,6 +2,7 @@ package jgame.utils;
 
 import java.util.Random;
 import jgame.math.Vec2;
+import jgame.math.Vec2Int;
 
 /**
  * Represents the directions available in the game.
@@ -35,6 +36,14 @@ public enum Dir implements IntegerEnum
             randInt *= -1;
         
         return dirs[randInt % dirs.length];
+    }
+    
+    public static Dir fromVector(Vec2Int vector)
+    {
+        if(vector.x == 0)
+            return vector.y == 1 ? Dir.DOWN : Dir.UP;
+        
+        return vector.x == 1 ? Dir.RIGHT : Dir.LEFT;
     }
     
     public Vec2 getVector()
