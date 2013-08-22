@@ -187,7 +187,7 @@ public class EntityMap
                 if(isSubtileValid(x, y))
                 {
                     foundEntities.addAll(map[y][x]);
-                    Debug.highlight(Color.orange, new Vec2Int(x, y));
+                    Debug.highlight(Color.darkGray, new Vec2Int(x, y));
                 }
             }
         }

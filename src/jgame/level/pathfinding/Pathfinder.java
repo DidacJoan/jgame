@@ -39,7 +39,7 @@ public class Pathfinder
         {
             Node current = pending.poll();
             
-            Debug.highlight(Color.gray, current.getSubtile());
+            Debug.highlight(Color.orange, current.getSubtile());
             
             Set<Entity> currentEntities = level.getEntitiesCollidedBy(from, current.getSubtile());
             
