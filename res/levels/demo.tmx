@@ -34,7 +34,7 @@
    <property name="blocked" value="true"/>
   </properties>
   <data encoding="base64" compression="zlib">
-   eJxjYBgFlIA9zAwMe4F4HxDvZybMJ2TOAyB+CMSPgPgxEXxcAKaOhYWBgRWI2YCYnYUwHxeAqRsFo2A4AWrlXxigVv6FAWrlX1oBAJXOK7Q=
+   eJxjYBgFlIA9zAwMe4F4HxDvZybMJ2TOAyB+CMSPgPgxEXxcAKaOhYWBgRWI2YCYnYUwHxeAqRsFo2AU4AbUyr8wQK38SysAABScIq4=
   </data>
  </layer>
  <layer name="Trees top" width="20" height="20">
@@ -43,6 +43,14 @@
   </properties>
   <data encoding="base64" compression="zlib">
    eJxjYBhZYAYzA8NMIJ4FxLOZCfMJmTMKRsEooB+gVv4dBdQBAE9zD+Q=
+  </data>
+ </layer>
+ <layer name="Trees top fix" width="20" height="20">
+  <properties>
+   <property name="blocked" value="true"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFo2AUjIKRCfYwMzDsBeJ9QLyfmTB/FKACAIdyCQc=
   </data>
  </layer>
  <objectgroup name="Objects" width="20" height="20">

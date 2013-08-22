@@ -12,7 +12,7 @@ import jgame.entity.mob.AI;
  */
 public class Follower extends AI
 {
-    private static final int SEEK_RADIUS = 10;
+    private static final int SEEK_RADIUS = 15;
     
     private Entity target;
     
