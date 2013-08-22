@@ -27,11 +27,24 @@ public class Path
         return steps.isEmpty();
     }
     
-    public Dir getFirstStepDirection()
+    public Dir[] getFirstStepDirection()
     {
         Vec2Int dirVector = steps.get(0).sub(origin);
         
-        return Dir.fromVector(dirVector);
+        if(dirVector.x == 0 || dirVector.y == 0)
+            return new Dir[]{ Dir.fromVector(dirVector) };
+        
+        Dir[] directions = new Dir[2];
+        int x = dirVector.x;
+        
+        dirVector.x = 0;
+        directions[0] = Dir.fromVector(dirVector);
+        
+        dirVector.x = x;
+        dirVector.y = 0;
+        directions[1] = Dir.fromVector(dirVector);
+        
+        return directions;
     }
     
     public void addStep(Vec2Int step)

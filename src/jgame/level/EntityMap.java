@@ -79,6 +79,7 @@ public class EntityMap
         {
             map[tile.y][tile.x].add(entity);
             
+            Debug.highlight(Color.cyan, getSubtile(entity.getPos()));
             Debug.highlight(Color.cyan, getSubtile(entity.getCenter()));
             Debug.highlight(Color.red, tile);
         }

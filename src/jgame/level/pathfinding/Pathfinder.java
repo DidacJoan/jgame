@@ -27,7 +27,7 @@ public class Pathfinder
     {
         nodes = new Node[level.getVerticalSubtiles()][level.getHorizontalSubtiles()];
         PriorityQueue<Node> pending = new PriorityQueue();
-        Vec2Int origin = level.getSubtile(from.getCenter());
+        Vec2Int origin = level.getSubtile(from.getPos());
         Vec2Int destination = level.getSubtile(to.getCenter());
         
         Node start = new Node(origin, 0, destination);

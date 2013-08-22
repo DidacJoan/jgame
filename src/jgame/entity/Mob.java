@@ -73,6 +73,9 @@ public class Mob extends MovableEntity
         Path path = getPathTo(entity);
         
         if(!path.isEmpty())
-            move(path.getFirstStepDirection(), delta);
+        {
+            for(Dir direction : path.getFirstStepDirection())
+                move(direction, delta);
+        }
     }
 }
