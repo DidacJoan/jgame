@@ -35,10 +35,10 @@ public class Grid
     {
         g.setColor(COLOR);
         
-        for(int i = 0; i < width; i += subtileDim)
+        for(int i = 0; i <= width; i += subtileDim)
             g.drawLine(i, 0, i, height);
         
-        for(int j = 0; j < height; j += subtileDim)
+        for(int j = 0; j <= height; j += subtileDim)
             g.drawLine(0, j, width, j);
         
         for(int i = ORDER.length - 1; i >= 0; --i)
