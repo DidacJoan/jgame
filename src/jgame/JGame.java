@@ -43,15 +43,15 @@ public class JGame extends BasicGame
     @Override
     public void init(GameContainer container) throws SlickException
     {
-        Debug.enable();
-        
-        level = new Level("demo");
+        level = new DebugLevel("demo");
         
         Link link = new Link(level);
         Player player = new Player(link, container.getInput());
         link.setAI(player);
         
-        level.setPlayer(link, "entrance");
+        level.load();
+        level.setPlayer(player);
+        level.setAtLocation(link, "entrance");
     }
 
     @Override
@@ -63,7 +63,6 @@ public class JGame extends BasicGame
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException
     {
-        level.render();
-        Debug.render(g);
+        level.render(g);
     }
 }

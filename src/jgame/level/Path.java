@@ -2,10 +2,8 @@ package jgame.level;
 
 import java.util.ArrayList;
 import java.util.List;
-import jgame.Debug;
 import jgame.math.Vec2Int;
 import jgame.utils.Dir;
-import org.newdawn.slick.Color;
 
 /**
  *
@@ -50,6 +48,5 @@ public class Path
     public void addStep(Vec2Int step)
     {
         steps.add(step);
-        Debug.highlight(Color.green, step);
     }
 }

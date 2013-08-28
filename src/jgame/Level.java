@@ -1,35 +1,37 @@
 package jgame;
 
-import java.util.List;
-import java.util.Set;
-import jgame.entity.MessageType;
 import jgame.entity.Mob;
 import jgame.entity.MovableEntity;
 import jgame.entity.mob.Link;
+import jgame.entity.mob.ia.Player;
 import jgame.entity.object.Plant;
 import jgame.level.EntityMap;
 import jgame.level.Location;
-import jgame.level.area.TileArea;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import jgame.utils.Dir;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.GroupObject;
 import org.newdawn.slick.tiled.ObjectGroup;
 
 /**
- * A Level is a TileMap with entities.
+ * Represents a Level in the game.
  * @author hector
  */
-public class Level extends TileMap
+public class Level extends EntityMap
 {
-    private EntityMap entityMap;
-
+    protected Player player;
+    
     public Level(String name) throws SlickException
     {
         super(name);
-
-        entityMap = new EntityMap(width, height, tileWidth, tileHeight);
+    }
+    
+    @Override
+    public void load() throws SlickException
+    {
+        super.load();
         loadEntities();
     }
     
@@ -57,32 +59,37 @@ public class Level extends TileMap
         }
         
         e.setPos(object.x, object.y - object.height);
-        entityMap.add(e);
+        add(e);
     }
     
-    public void setPlayer(Mob p, String locationName)
+    public void setPlayer(Player player)
+    {
+        this.player = player;
+    }
+    
+    public void setAtLocation(Mob p, String locationName)
     {
         Location location = getLocation(locationName);
         
         p.setPos(location.getPos());
         p.setFacing(location.getFacing());
         
-        entityMap.add(p);
+        add(p);
     }
     
     @Override
     public void update(int delta)
     {
-        entityMap.removeDead();
-        entityMap.update(delta);
+        removeDead();
+        super.update(delta);
     }
     
     @Override
-    public void render()
+    public void render(Graphics g)
     {
         renderLayersBelow(0, 0);
         
-        for(Entity e : entityMap.getEntities())
+        for(Entity e : getEntities())
             e.render();
         
         renderLayersAbove(0, 0);
@@ -100,7 +107,7 @@ public class Level extends TileMap
     
     public boolean canBeMovedTo(Entity entity, Vec2Int subtile)
     {
-        return canBeMovedTo(entity, entityMap.getPosition(subtile));
+        return canBeMovedTo(entity, getPosition(subtile));
     }
     
     private boolean canBeMovedTo(Entity mob, Vec2 position)
@@ -108,49 +115,13 @@ public class Level extends TileMap
         if(areTilesBlocked(mob.getTopLeft(position), mob.getBottomRight(position)))
             return false;
         
-        return entityMap.handleCollisions(mob, position);
-    }
-    
-    public void send(MessageType msg, Entity from, TileArea area)
-    {
-        entityMap.send(msg, from, area);
-    }
-    
-    public Set<Entity> seek(Vec2 pos, int radius)
-    {
-        // @TODO Refactoring needed
-        return entityMap.seek(pos, radius);
+        return handleCollisions(mob, position);
     }
     
     public boolean areTilesBlocked(Entity entity, Vec2Int atSubtile)
     {
-        Vec2 pos = entityMap.getPosition(atSubtile);
+        Vec2 pos = getPosition(atSubtile);
         
         return areTilesBlocked(entity.getTopLeft(pos), entity.getBottomRight(pos));
-    }
-    
-    public Set<Entity> getEntitiesCollidedBy(Entity entity, Vec2Int atSubtile)
-    {
-        return entityMap.getEntitiesCollidedBy(entity, atSubtile);
-    }
-    
-    public Vec2Int getSubtile(Vec2 pos)
-    {
-        return entityMap.getSubtile(pos);
-    }
-    
-    public List<Vec2Int> getNeighbors(Vec2Int subtile)
-    {
-        return entityMap.getNeighbors(subtile);
-    }
-    
-    public int getHorizontalSubtiles()
-    {
-        return entityMap.getHorizontalSubtiles();
-    }
-    
-    public int getVerticalSubtiles()
-    {
-        return entityMap.getVerticalSubtiles();
     }
 }

@@ -2,12 +2,10 @@ package jgame.level.pathfinding;
 
 import java.util.PriorityQueue;
 import java.util.Set;
-import jgame.Debug;
 import jgame.Entity;
 import jgame.Level;
 import jgame.level.Path;
 import jgame.math.Vec2Int;
-import org.newdawn.slick.Color;
 
 /**
  *
@@ -38,8 +36,6 @@ public class Pathfinder
         while(!pending.isEmpty())
         {
             Node current = pending.poll();
-            
-            Debug.highlight(Color.orange, current.getSubtile());
             
             Set<Entity> currentEntities = level.getEntitiesCollidedBy(from, current.getSubtile());
             

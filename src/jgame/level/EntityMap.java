@@ -6,20 +6,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import jgame.Debug;
 import jgame.Entity;
+import jgame.TileMap;
 import jgame.entity.MessageType;
 import jgame.level.area.TileArea;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
-import jgame.utils.Grid;
-import org.newdawn.slick.Color;
+import org.newdawn.slick.SlickException;
 
 /**
  *
  * @author hector
  */
-public class EntityMap
+public class EntityMap extends TileMap
 {
     private static final int SUBTILE_DIM = 4;
     
@@ -27,20 +26,18 @@ public class EntityMap
     private TreeSet<Entity> entities;
     private Vec2Int subtileCount;
     
-    public EntityMap(int width, int height, int tileWidth, int tileHeight)
+    public EntityMap(String name) throws SlickException
     {
+        super(name);
+        
         subtileCount = new Vec2Int(tileWidth, tileHeight).div(SUBTILE_DIM);
         map = new List[height*subtileCount.y][width*subtileCount.x];
         entities = new TreeSet();
         
-        // @TODO Debug factory?
-        Grid grid = new Grid(width * tileWidth, height * tileHeight, SUBTILE_DIM);
-        Debug.setGrid(grid);
-        
         initMap();
     }
     
-    private void initMap()
+    private void initMap() throws SlickException
     {
         for(int i = 0; i < map.length; ++i)
             for(int j = 0; j < map[0].length; ++j)
@@ -57,6 +54,12 @@ public class EntityMap
         return map[0].length;
     }
     
+    public int getSubtileDimension()
+    {
+        return SUBTILE_DIM;
+    }
+    
+    @Override
     public void update(int delta)
     {
         TreeSet<Entity> entitiesUpdated = new TreeSet();
@@ -76,13 +79,7 @@ public class EntityMap
     public void lock(Entity entity)
     {
         for(Vec2Int tile : getSubtiles(entity))
-        {
             map[tile.y][tile.x].add(entity);
-            
-            Debug.highlight(Color.cyan, getSubtile(entity.getPos()));
-            Debug.highlight(Color.cyan, getSubtile(entity.getCenter()));
-            Debug.highlight(Color.red, tile);
-        }
     }
     
     public void free(Entity entity)
@@ -162,8 +159,6 @@ public class EntityMap
             if(!isSubtileValid(subtile))
                 continue;
             
-            Debug.highlight(Color.blue, subtile);
-            
             for(Entity e : map[subtile.y][subtile.x])
                 e.receive(msg, from);
         }
@@ -181,16 +176,9 @@ public class EntityMap
         Vec2Int bottomRight = centerSubtile.add(radius);
         
         for(int x = topLeft.x; x < bottomRight.x; ++x)
-        {
             for(int y = topLeft.y; y <= bottomRight.y; ++y)
-            {
                 if(isSubtileValid(x, y))
-                {
                     foundEntities.addAll(map[y][x]);
-                    Debug.highlight(Color.darkGray, new Vec2Int(x, y));
-                }
-            }
-        }
         
         return foundEntities;
     }
@@ -219,7 +207,7 @@ public class EntityMap
         return new Vec2(subtile.x * SUBTILE_DIM, subtile.y * SUBTILE_DIM);
     }
     
-    private List<Vec2Int> getSubtiles(Entity entity)
+    protected List<Vec2Int> getSubtiles(Entity entity)
     {
         return getSubtiles(entity, entity.getPos());
     }

@@ -4,6 +4,7 @@ import jgame.level.Location;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import jgame.utils.Dir;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.GroupObject;
@@ -16,8 +17,8 @@ import org.newdawn.slick.util.pathfinding.TileBasedMap;
  * Represents a map in the game.
  * @author hector
  */
-public class TileMap extends TiledMapPlus implements TileBasedMap {
-    
+public class TileMap extends TiledMapPlus implements TileBasedMap
+{
     private String name;
     private boolean[][] blocked;
     private int layerCount;
@@ -27,37 +28,29 @@ public class TileMap extends TiledMapPlus implements TileBasedMap {
     {
         super("levels/" + name + ".tmx");
         this.name = name;
-        
-        load();
     }
     
-    private void load() throws SlickException
-    {
-        System.out.println("Loading map " + name + "...");
-        
-        loadTiles();
-        
-        System.out.println(name + " map loaded successfully!");
-    }
-    
-    private void loadTiles()
+    public void load() throws SlickException
     {
         blocked = new boolean[getHeight()][getWidth()];
         layerCount = aboveIndex = getLayerCount();
         
         for(int i = 0; i < layerCount; ++i)
-        {
-            System.out.println("Loading layer " + i + "...");
-            
-            if(getLayerProperty(i, "blocked", "false").equals("true"))
-                loadBlockedTilesFromLayer(i);
-            
-            if(aboveIndex == layerCount && getLayerProperty(i, "above", "false").equals("true"))
-            {
-                aboveIndex = i;
-                System.out.println("Layers " + i + "+ are above the player...");
-            }
-        }
+            loadLayer(i);
+    }
+    
+    protected void loadLayer(int layerNum)
+    {
+        if(getLayerProperty(layerNum, "blocked", "false").equals("true"))
+            loadBlockedTilesFromLayer(layerNum);
+        
+        if(aboveIndex == layerCount && getLayerProperty(layerNum, "above", "false").equals("true"))
+            aboveIndex = layerNum;
+    }
+    
+    protected int getAboveLayerIndex()
+    {
+        return aboveIndex;
     }
     
     private void loadBlockedTilesFromLayer(int layerIndex)
@@ -99,6 +92,11 @@ public class TileMap extends TiledMapPlus implements TileBasedMap {
         }
         
         return false;
+    }
+    
+    public String getName()
+    {
+        return name;
     }
     
     public Location getLocation(String location)
@@ -150,7 +148,7 @@ public class TileMap extends TiledMapPlus implements TileBasedMap {
         
     }
     
-    public void render()
+    public void render(Graphics g)
     {
         renderLayers(0, layerCount, 0, 0);
     }
