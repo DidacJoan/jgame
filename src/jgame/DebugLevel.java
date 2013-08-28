@@ -107,15 +107,17 @@ public class DebugLevel extends Level
     
     private void drawGrid(Graphics g)
     {
+        int totalWidth = getWidthInPixels();
+        int totalHeight = getHeightInPixels();
         int subtileDim = getSubtileDimension();
         
         g.setColor(COLOR);
         
-        for(int i = 0; i <= width*tileWidth; i += subtileDim)
-            g.drawLine(i, 0, i, height);
+        for(int i = 0; i <= totalWidth; i += subtileDim)
+            g.drawLine(i, 0, i, totalHeight);
         
-        for(int j = 0; j <= height*tileHeight; j += subtileDim)
-            g.drawLine(0, j, width, j);
+        for(int j = 0; j <= totalHeight; j += subtileDim)
+            g.drawLine(0, j, totalWidth, j);
         
         for(int i = ORDER.length - 1; i >= 0; --i)
         {

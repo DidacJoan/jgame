@@ -154,23 +154,35 @@ public class TileMap extends TiledMapPlus implements TileBasedMap
     }
     
     @Override
-    public boolean blocked(PathFindingContext ctx, int x, int y) {
+    public boolean blocked(PathFindingContext ctx, int x, int y)
+    {
         return blocked[y][x];
     }
 
     @Override
-    public float getCost(PathFindingContext ctx, int x, int y) {
+    public float getCost(PathFindingContext ctx, int x, int y)
+    {
         return 1.0f;
     }
 
     @Override
     public int getHeightInTiles() {
-        return getHeight();
+        return height;
+    }
+    
+    public int getHeightInPixels()
+    {
+        return height * tileHeight;
     }
 
     @Override
     public int getWidthInTiles() {
-        return getWidth();
+        return width;
+    }
+    
+    public int getWidthInPixels()
+    {
+        return width * tileWidth;
     }
 
     @Override
