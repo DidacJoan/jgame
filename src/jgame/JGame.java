@@ -15,23 +15,27 @@ import org.newdawn.slick.SlickException;
  */
 public class JGame extends BasicGame
 {
-    private static final int framerate = 60;
+    private static final int TARGET_FRAMERATE = 60;
     
     private Level level;
     
-    public JGame()
+    public JGame() throws SlickException
     {
         super("JGame");
+        
+        
     }
     
     public static void main(String[] arguments)
     {
         try
         {
-            AppGameContainer app = new AppGameContainer(new JGame());
+            JGame game = new JGame();
+            AppGameContainer app = new AppGameContainer(game);
+            
             app.setDisplayMode(800, 600, false);
-            app.setTargetFrameRate(framerate);
-            app.setMaximumLogicUpdateInterval(1000 / framerate);
+            app.setTargetFrameRate(TARGET_FRAMERATE);
+            app.setMaximumLogicUpdateInterval(1000 / TARGET_FRAMERATE);
             app.start();
         }
         catch (SlickException e)
@@ -39,17 +43,17 @@ public class JGame extends BasicGame
             e.printStackTrace();
         }
     }
-
+    
     @Override
     public void init(GameContainer container) throws SlickException
     {
         level = new DebugLevel("demo");
+        level.load();
         
         Link link = new Link(level);
         Player player = new Player(link, container.getInput());
         link.setAI(player);
         
-        level.load();
         level.setPlayer(player);
         level.setAtLocation(link, "entrance");
     }

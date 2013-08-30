@@ -24,14 +24,16 @@ public class EntityMap extends TileMap
     
     private List<Entity>[][] map;
     private TreeSet<Entity> entities;
-    private Vec2Int subtileCount;
     
     public EntityMap(String name) throws SlickException
     {
         super(name);
         
-        subtileCount = new Vec2Int(tileWidth, tileHeight).div(SUBTILE_DIM);
-        map = new List[height*subtileCount.y][width*subtileCount.x];
+        if(tileWidth != tileHeight)
+            throw new RuntimeException("Tile width and tile height should be identical!");
+        
+        int subtileCount = tileWidth / SUBTILE_DIM;
+        map = new List[height*subtileCount][width*subtileCount];
         entities = new TreeSet();
         
         initMap();

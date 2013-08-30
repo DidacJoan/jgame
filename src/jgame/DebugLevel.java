@@ -60,8 +60,14 @@ public class DebugLevel extends Level
     @Override
     public void update(int delta)
     {
-        if(player != null && player.hasKeyUp(Input.KEY_D))
-            toggle();
+        if(player != null)
+        {
+            if(player.hasKeyUp(Input.KEY_ESCAPE))
+                System.exit(0);
+            
+            if(player.hasKeyUp(Input.KEY_D))
+                toggle();
+        }
         
         if(enabled)
         {
