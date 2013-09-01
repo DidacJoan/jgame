@@ -6,6 +6,7 @@ import jgame.Entity;
 import jgame.Level;
 import jgame.level.Path;
 import jgame.math.Vec2Int;
+import org.newdawn.slick.Color;
 
 /**
  *
@@ -36,6 +37,7 @@ public class Pathfinder
         while(!pending.isEmpty())
         {
             Node current = pending.poll();
+            level.highlight(Color.darkGray, current.getSubtile());
             
             Set<Entity> currentEntities = level.getEntitiesCollidedBy(from, current.getSubtile());
             

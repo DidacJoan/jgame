@@ -238,7 +238,7 @@ public class EntityMap extends TileMap
         return isSubtileValid(subtile.x, subtile.y);
     }
         
-    private boolean isSubtileValid(int x, int y)
+    protected boolean isSubtileValid(int x, int y)
     {
         if(x < 0 || y < 0)
             return false;

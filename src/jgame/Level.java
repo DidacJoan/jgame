@@ -10,6 +10,7 @@ import jgame.level.Location;
 import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import jgame.utils.Dir;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.GroupObject;
@@ -123,5 +124,11 @@ public class Level extends EntityMap
         Vec2 pos = getPosition(atSubtile);
         
         return areTilesBlocked(entity.getTopLeft(pos), entity.getBottomRight(pos));
+    }
+    
+    public void highlight(Color color, Vec2Int subtile)
+    {
+        // No debugging allowed here!
+        // @TODO Refactoring?
     }
 }

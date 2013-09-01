@@ -16,14 +16,12 @@ public class Player extends AI
     private static final Dir[] KEYS_DIR = { Dir.DOWN, Dir.UP, Dir.RIGHT, Dir.LEFT };
     
     private Controller controller;
-    private boolean toggle;
     
     public Player(Mob mob, Input input)
     {
         super(mob);
         
         this.controller = new Controller(input);
-        toggle = false;
     }
     
     @Override

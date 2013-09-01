@@ -22,8 +22,6 @@ public class JGame extends BasicGame
     public JGame() throws SlickException
     {
         super("JGame");
-        
-        
     }
     
     public static void main(String[] arguments)

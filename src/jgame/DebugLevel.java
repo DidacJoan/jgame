@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import jgame.entity.MessageType;
 import jgame.level.area.TileArea;
+import jgame.math.Vec2;
 import jgame.math.Vec2Int;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -23,7 +25,6 @@ public class DebugLevel extends Level
         Color.red, Color.darkGray };
     
     private boolean enabled;
-    private boolean toggle;
     private Map<Color, List<Vec2Int>> highlights;
     
     public DebugLevel(String name) throws SlickException
@@ -31,7 +32,6 @@ public class DebugLevel extends Level
         super(name);
         
         enabled = true;
-        toggle = false;
         highlights = new HashMap();
     }
     
@@ -101,6 +101,22 @@ public class DebugLevel extends Level
     }
     
     @Override
+    public Set<Entity> seek(Vec2 pos, int radius)
+    {
+        // @TODO Refactoring?
+        Vec2Int centerSubtile = getSubtile(pos);
+        Vec2Int topLeft = centerSubtile.sub(radius);
+        Vec2Int bottomRight = centerSubtile.add(radius);
+        
+        for(int x = topLeft.x; x < bottomRight.x; ++x)
+            for(int y = topLeft.y; y <= bottomRight.y; ++y)
+                if(isSubtileValid(x, y))
+                    highlight(Color.orange, new Vec2Int(x, y));
+        
+        return super.seek(pos, radius);
+    }
+    
+    @Override
     public void render(Graphics g)
     {
         super.render(g);
@@ -139,6 +155,7 @@ public class DebugLevel extends Level
         }
     }
     
+    @Override
     public void highlight(Color color, Vec2Int subtile)
     {
         if(! highlights.containsKey(color))
