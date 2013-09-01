@@ -9,7 +9,7 @@ import jgame.level.Path;
  */
 public class Killer extends Seeker
 {
-    private static final int SEEK_RADIUS = 10;
+    private static final int SEEK_RADIUS = 15;
     
     public Killer(Mob mob)
     {
@@ -27,10 +27,9 @@ public class Killer extends Seeker
         
         else
         {
-            
             Path path = mob.getPathTo(target);
             
-            if(path.getLength() < 5)
+            if(path.getLength() < 3)
                 mob.attack();
             else
                 mob.follow(path, delta);
