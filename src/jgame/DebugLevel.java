@@ -31,7 +31,7 @@ public class DebugLevel extends Level
     {
         super(name);
         
-        enabled = true;
+        enabled = false;
         highlights = new HashMap();
     }
     

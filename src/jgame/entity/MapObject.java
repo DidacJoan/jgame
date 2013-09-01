@@ -1,6 +1,7 @@
 package jgame.entity;
 
 import jgame.Entity;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 /**
@@ -19,7 +20,7 @@ public class MapObject extends Entity {
     }
     
     @Override
-    public void render()
+    public void render(Graphics g)
     {
         image.draw((float)pos.x, (float)pos.y);
     }

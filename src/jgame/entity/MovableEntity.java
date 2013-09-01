@@ -3,11 +3,12 @@ package jgame.entity;
 import java.util.ArrayList;
 import java.util.List;
 import jgame.Entity;
-import jgame.entity.mob.Action;
 import jgame.Level;
+import jgame.entity.mob.Action;
 import jgame.level.area.TileArea;
 import jgame.math.Vec2;
 import jgame.utils.Dir;
+import org.newdawn.slick.Graphics;
 
 /**
  * Represents an Entity with the ability to move.
@@ -66,7 +67,7 @@ abstract public class MovableEntity extends Entity
     
     public boolean canMove()
     {
-        return !currentAction.isBlocking();
+        return !isDead() && !currentAction.isBlocking();
     }
     
     public void addAttack(Action action)
@@ -109,7 +110,7 @@ abstract public class MovableEntity extends Entity
     }
     
     @Override
-    public void render()
+    public void render(Graphics g)
     {
         currentAction.render();
         moving = false;

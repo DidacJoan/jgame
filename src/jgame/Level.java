@@ -91,7 +91,7 @@ public class Level extends EntityMap
         renderLayersBelow(0, 0);
         
         for(Entity e : getEntities())
-            e.render();
+            e.render(g);
         
         renderLayersAbove(0, 0);
     }

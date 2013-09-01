@@ -110,7 +110,7 @@ public class EntityMap extends TileMap
         {
             Entity e = it.next();
             
-            if(e.shouldDie())
+            if(e.isDead())
             {
                 free(e);
                 it.remove();

@@ -3,12 +3,14 @@ package jgame.entity;
 import java.util.Set;
 import jgame.Entity;
 import jgame.Level;
+import jgame.entity.health.HealthPoints;
 import jgame.entity.mob.AI;
-import jgame.entity.mob.ia.Follower;
+import jgame.entity.mob.ia.Killer;
 import jgame.level.Path;
 import jgame.level.pathfinding.Pathfinder;
 import jgame.math.Vec2;
 import jgame.utils.Dir;
+import org.newdawn.slick.Graphics;
 
 /**
  * A Mob is a MovableEntity with some moving actions and an artificial intelligence.
@@ -21,14 +23,19 @@ public class Mob extends MovableEntity
     private static final int WANDER_TIMEOUT = 300;
     private Dir wanderDirection;
     private int time;
+    private Health health;
     
     public Mob(String name, Level level, Vec2 topLeft, Vec2 bottomRight)
     {
         super(name, level, topLeft, bottomRight);
         
-        ai = new Follower(this);
+        ai = new Killer(this);
         pathfinder = new Pathfinder(level);
         wanderDirection = Dir.random();
+        health = new HealthPoints(100);
+        
+        health.setRenderCentered(true);
+        health.setRenderOver(true);
     }
     
     public void setAI(AI ia)
@@ -39,10 +46,20 @@ public class Mob extends MovableEntity
     @Override
     public void update(int delta)
     {
+        if(health.isEmpty())
+            kill();
+        
         if(canMove())
             ai.update(delta);
         
         super.update(delta);
+    }
+    
+    @Override
+    public void receive(MessageType msg, Entity from)
+    {
+        if(msg == MessageType.DAMAGE)
+            health.damage(1);
     }
     
     public void wander(int delta)
@@ -70,12 +87,22 @@ public class Mob extends MovableEntity
     
     public void goTo(Entity entity, int delta)
     {
-        Path path = getPathTo(entity);
-        
+        follow(getPathTo(entity), delta);
+    }
+    
+    public void follow(Path path, int delta)
+    {
         if(!path.isEmpty())
         {
             for(Dir direction : path.getFirstStepDirection())
                 move(direction, delta);
         }
+    }
+    
+    @Override
+    public void render(Graphics g)
+    {
+        super.render(g);
+        health.render(g, getPosCenter());
     }
 }

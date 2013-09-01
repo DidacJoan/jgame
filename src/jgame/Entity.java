@@ -2,6 +2,7 @@ package jgame;
 
 import jgame.entity.MessageType;
 import jgame.math.Vec2;
+import org.newdawn.slick.Graphics;
 
 /**
  * Represents an entity in the game.
@@ -40,6 +41,11 @@ abstract public class Entity implements Comparable<Entity>
     public Vec2 getPos()
     {
         return pos;
+    }
+       
+    public Vec2 getPosCenter()
+    {
+        return getPos().add(new Vec2(getWidth() / 2.0, 0));
     }
     
     public void setPos(Vec2 pos)
@@ -88,7 +94,7 @@ abstract public class Entity implements Comparable<Entity>
         return bottomRight.add(pos);
     }
     
-    public boolean shouldDie()
+    public boolean isDead()
     {
         return shouldDie;
     }
@@ -118,7 +124,7 @@ abstract public class Entity implements Comparable<Entity>
         
     }
     
-    public void render()
+    public void render(Graphics g)
     {
         
     }

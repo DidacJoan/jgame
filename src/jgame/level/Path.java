@@ -25,6 +25,11 @@ public class Path
         return steps.isEmpty();
     }
     
+    public int getLength()
+    {
+        return steps.size();
+    }
+    
     public Dir[] getFirstStepDirection()
     {
         Vec2Int dirVector = steps.get(0).sub(origin);
