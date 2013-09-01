@@ -5,7 +5,7 @@ import jgame.Entity;
 import jgame.Level;
 import jgame.entity.health.HealthPoints;
 import jgame.entity.mob.AI;
-import jgame.entity.mob.ia.Killer;
+import jgame.entity.mob.ai.Killer;
 import jgame.level.Path;
 import jgame.level.pathfinding.Pathfinder;
 import jgame.math.Vec2;
@@ -38,9 +38,9 @@ public class Mob extends MovableEntity
         health.setRenderOver(true);
     }
     
-    public void setAI(AI ia)
+    public void setAI(AI ai)
     {
-        this.ai = ia;
+        this.ai = ai;
     }
     
     @Override

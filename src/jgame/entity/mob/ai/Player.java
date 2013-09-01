@@ -1,4 +1,4 @@
-package jgame.entity.mob.ia;
+package jgame.entity.mob.ai;
 
 import jgame.Controller;
 import jgame.entity.Mob;

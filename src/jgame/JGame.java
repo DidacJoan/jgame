@@ -1,7 +1,7 @@
 package jgame;
 
 import jgame.entity.mob.Link;
-import jgame.entity.mob.ia.Player;
+import jgame.entity.mob.ai.Player;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;

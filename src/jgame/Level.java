@@ -3,7 +3,7 @@ package jgame;
 import jgame.entity.Mob;
 import jgame.entity.MovableEntity;
 import jgame.entity.mob.Link;
-import jgame.entity.mob.ia.Player;
+import jgame.entity.mob.ai.Player;
 import jgame.entity.object.Plant;
 import jgame.level.EntityMap;
 import jgame.level.Location;
